@@ -1,0 +1,237 @@
+
+===== PAGE 1 =====
+  
+ 
+ÉVALUATION MISE EN SITUATION PROFESSIONNELLE 
+RECONSTITUÉE 
+ 
+Certification professionnelle Expert/Experte en Informatique et Système d'Information 
+Niveau 7 - RNCP 35584 
+ 
+EVALUATION CERTIFICATIVE 
+Direction National EPSI WIS   Page 1 sur 4 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+La Mise En Situation Professionnelle Reconstituée permet l’évaluation des compétences 
+professionnelles listées dans le :  
+Bloc de compétences 3 : Piloter l'informatique décisionnel d'un S.I (Big Data & BI) 
+ 
+Légende : 
+• Niveau ND : Non démontrée 
+• Niveau 1 : Niveau de base / Compétence dont la connaissance est partielle – 
+Pratique superficielle 
+• Niveau 2 : Niveau intermédiaire / Pratique correcte – Maitrise de l’attitude 
+• Niveau 3 : Niveau le plus élevé / Pratique approfondie – Possibilité de pouvoir 
+transmettre cette compétence à d’autres  
+ 
+ 
+ 
+ 
+Date de soutenance   Campus  
+  
+NOM Prénom du Candidat/Candidate  
+ 
+Jurys professionnels 
+Jury 1* (Président du Jury)  Jury 2* 
+NOM Prénom  NOM Prénom  
+Entreprise  Entreprise  
+Bloc de compétences 3 : Piloter 
+l'informatique décisionnel d'un S.I (Big Data 
+& BI) 
+MSPR TPRE813 - Big data et Analyse de données 
+
+===== PAGE 2 =====
+ÉVALUATION MISE EN SITUATION PROFESSIONNELLE RECONSTITUÉE 
+ 
+Certification professionnelle Expert/Experte en Informatique et Système d'Information- Niveau 7 - RNCP 35584 
+ 
+EVALUATION CERTIFICATIVE 
+Direction National EPSI WIS      Page 2 sur 4 
+ 
+ 
+BLOC DE COMPETENCES 3 : Piloter l'informatique décisionnel d'un S.I (Big Data & BI) 
+Compétences  Critères d’évaluation Niveaux de maîtrise 
+des compétences  
+ ND 1 2 3 
+ 
+Collecter les besoins en données des directions 
+métiers de l’entreprise afin d’avoir une vision 
+structurée de l’ensemble des données du 
+système d’information et partager la stratégie 
+Data globale avec le comité de direction 
+Le candidat/La candidate propose une stratégie de gestion de données globale : 
+• Il/Elle collecte les besoins en termes de données des directions métiers à partir du cahier 
+des charges 
+• Il/Elle modélise le processus à déployer pour collecter, structurer, gérer et valoriser les 
+données 
+• Il/Elle formalise un descriptif écrit de son processus et liste ses sources de données 
+(vocabulaire technique adapté, timing du processus adapté à la réalisation) 
+• Il/Elle illustre son écrit par un schéma (il/elle présente un diagramme de flux à l’aide d’un outil 
+approprié type BPM ou ETL) 
+    
+ 
+Définir une architecture business intelligence à 
+partir des orientations stratégiques arrêtées avec 
+le comité de direction afin de mettre à  disposition 
+des utilisateurs métiers les données structurées 
+d’un S.I. 
+Le candidat/La candidate est capable de proposer une architecture décisionnelle en décrivant : 
+• L’environnement technologique de la couche 1 (collecte de données) 
+• L’environnement technologique de la couche 2 (la modélisation et le stockage de données) 
+Il/Elle présente les différents outils utilisés pour la couche 3 (restitution de données) 
+    
+ 
+Définir une stratégie big data (de la collecte aux 
+traitements des données) à partir des orientations 
+stratégiques arrêtées avec le comité de direction 
+afin d’aider l’entreprise à mieux comprendre ses 
+clients et à créer de nouveaux services 
+Le candidat/La candidate définit une stratégie big data pour répondre aux besoins des clients 
+ou métiers de l’entreprise : 
+• Il/Elle liste les technologies et les outils adaptés aux types de données (couche ingestion de 
+données) 
+• Il/Elle choisit une méthodologie de stockage de type ELT ou Datalake 
+• Il/Elle modélise les processus de traitement parallèle et distribué (pipelines) 
+Il/Elle définit le mode de restitution des données afin de créer de la valeur 
+    
+Proposer des modèles statistiques et de data 
+science (machine Learning) à mettre en pratique 
+aux directions métiers afin de détecter des 
+nouveaux services, anticiper des besoins et 
+résoudre des  problématiques  métiers de 
+l’entreprise 
+A partir d’une approche machine learning existante, le candidat/la candidate est capable 
+d’implémenter et tester des modèles de machine learning (data science) 
+• Il/Elle utilise de façon approprié le langage R ou Python 
+• Il/Elle interprète les résultats en les formalisant à l’écrit 
+Le modèle conçu par le candidat/la candidate atteint un pouvoir de prédiction supérieur à 0.5 
+    
+
+===== PAGE 3 =====
+ÉVALUATION MISE EN SITUATION PROFESSIONNELLE RECONSTITUÉE 
+ 
+Certification professionnelle Expert/Experte en Informatique et Système d'Information- Niveau 7 - RNCP 35584 
+ 
+EVALUATION CERTIFICATIVE 
+Direction National EPSI WIS      Page 3 sur 4 
+ 
+ 
+ 
+BLOC DE COMPETENCES 3 : Piloter l'informatique décisionnel d'un S.I (Big Data & BI) 
+Compétences  Critères d’évaluation Niveaux de maîtrise 
+des compétences  
+ ND 1 2 3 
+Organiser les sources de données sous forme de 
+résultats exploitables (data visualisation) pour 
+alimenter les outils  décisionnels et visualiser les 
+résultats de façon compréhensible permettant d’aider 
+les directions métiers à la prise de décision 
+ 
+Le candidat/La candidate est capable de valoriser graphiquement des résultats issus des 
+données collectées : 
+• Capacité à décrire les techniques de data visualisations existantes et il/elle est 
+capable de les lister 
+• Il/Elle utilise l’outil datavisualisation de manière appropriée 
+Il/Elle génère les rapports interactifs à l’aide de l’outil 
+    
+Définir les données de référence  de l’entreprise à 
+partir des données utilisées pour créer un  référentiel 
+de données afin d’assurer la mise à disposition de  
+données cohérentes aux directions métiers 
+ 
+Le candidat/La candidate est capable d’identifier le référentiel de données de l’entreprise 
+: 
+Il/Elle identifie et formalise par écrit des critères de sélection et de validation des 
+données existantes 
+    
+Créer un entrepôt unique à partir  du référentiel de 
+données établi  pour centraliser les informations  
+stratégiques  de l’entreprise et répondre rapidement 
+aux besoins métiers 
+Le candidat/La candidate conçoit et argumente le choix 
+du modèle multidimensionnel : 
+• En étoile, en flocon et grappe 
+Il/Elle déploie son modèle multidimensionnel, (d’un entrepôt ou d’un cube), dans une 
+solution BI (Business Intelligence) 
+    
+Assurer la qualité des données en utilisant les outils 
+de gestion de la  qualité de données pour garantir  
+l’exactitude, la cohérence, la synchronisation  et la 
+traçabilité des données afin de satisfaire les  besoins 
+d’accessibilité  des utilisateurs métiers 
+ 
+ 
+Le candidat/La candidate est capable de mesurer la qualité des données : 
+Il/Elle est capable d’utiliser un outil traitant le nettoyage de données : (Data Cleansing, Data 
+Quality Management) 
+    
+Appliquer les procédures de sécurité établies par le / 
+la RSSI de l’entreprise afin d’assurer la confidentialité 
+et la sécurité des  données et garantir une mise en  
+conformité avec les obligations légales du RGPD 
+ 
+Le candidat/La candidate propose une méthodologie de 
+collecte de données : 
+Respectant les aspects de la sécurité de données et les aspects juridiques (RGPD, 
+clauses contractuelles client/fournisseur, propriété intellectuelle…) 
+    
+
+===== PAGE 4 =====
+  
+ÉVALUATION MISE EN SITUATION PROFESSIONNELLE 
+RECONSTITUÉE 
+ 
+Certification professionnelle Expert/Experte en Informatique et Système d'Information 
+Niveau 7 - RNCP 35584 
+ 
+EVALUATION CERTIFICATIVE 
+Direction National EPSI WIS   Page 4 sur 4 
+ 
+ 
+ 
+ 
+BLOC DE COMPETENCES 3 : Piloter l'informatique décisionnel d'un S.I (Big Data & 
+BI) 
+Mise en Situation Professionnelle 
+Reconstituée : 
+☐Validée  
+☐Non Validée  
+Le Jury valide la MSPR sur la base des compétences évaluées et éventuellement des savoirs-être 
+du candidat. 
+Réalisée dans le cadre d’une évaluation en lien avec les compétences de la certification professionnelle visée : 
+Expert/Experte en Informatique et Système d'Information, Niveau 7 - RNCP 35584 
+ 
+ RÉALISÉE DANS LE CADRE D’UN : ☒Parcours continu de formation 
+☐Parcours discontinu de formation 
+ 
+ 
+Commentaire : (obligatoire)  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Jury professionnel 1* (Président du Jury) 
+Nom – Prénom :  
+Signature  
+ 
+ 
+ 
+ 
+Jury professionnel 2* 
+Nom – Prénom :  
+Signature  
+ 
+ 

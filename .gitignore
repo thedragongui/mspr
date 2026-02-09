@@ -1,0 +1,17 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# env
+.env
+
+# data
+data/raw/
+data/processed/
+
+# notebooks
+.ipynb_checkpoints/
+
+# misc
+*.log
