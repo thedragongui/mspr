@@ -15,3 +15,7 @@ data/processed/
 
 # misc
 *.log
+
+# airflow
+airflow/logs/
+airflow/plugins/

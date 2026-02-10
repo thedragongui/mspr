@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS election_result (
   registered integer,
   votes_cast integer,
   votes_valid integer,
-  votes integer NOT NULL,
+  votes integer,
   vote_share numeric(6,5),
   PRIMARY KEY (election_id, insee_code, candidate_id)
 );
