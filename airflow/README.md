@@ -14,6 +14,7 @@
 - `mspr_idf_presidentielles_etl`
   - `load_presidential_results`
   - `load_socio_economic_indicators`
+  - `build_matplotlib_dashboard`
 
 ## Arreter Airflow
 - `docker compose -f docker-compose.yml -f docker-compose.airflow.yml stop airflow`

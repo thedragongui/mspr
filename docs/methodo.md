@@ -22,3 +22,4 @@
 ## Restitution
 - Scenarios a 1/2/3 ans
 - Visualisations claires pour non-techniciens
+- Dashboard Matplotlib par departement IDF (generation automatisee)

@@ -1,4 +1,4 @@
--- Postgres schema for MSPR Electio Analytics POC (Herault / 34)
+-- Postgres schema for MSPR Electio Analytics POC (Ile-de-France)
 
 CREATE TABLE IF NOT EXISTS geo_department (
   dept_code char(2) PRIMARY KEY,
@@ -59,7 +59,3 @@ CREATE TABLE IF NOT EXISTS indicator_value (
   source_file text,
   PRIMARY KEY (indicator_id, insee_code, year)
 );
-
-INSERT INTO geo_department (dept_code, dept_name)
-VALUES ('34', 'Herault')
-ON CONFLICT (dept_code) DO NOTHING;

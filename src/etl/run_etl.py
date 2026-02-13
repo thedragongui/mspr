@@ -985,6 +985,14 @@ def run_election_pipeline():
     )
 
 
+def collect_election_results_dataframe():
+    return _collect_all_results()
+
+
+def collect_socio_indicator_values_dataframe():
+    return _collect_socio_indicator_values()
+
+
 def run_socio_economic_pipeline():
     values_df = _collect_socio_indicator_values()
     if values_df.empty:

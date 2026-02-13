@@ -4,6 +4,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 from src.etl import run_etl
+from src.dashboard import build_dashboard
 
 
 with DAG(
@@ -24,4 +25,9 @@ with DAG(
         python_callable=run_etl.run_socio_economic_pipeline,
     )
 
-    load_presidential_results >> load_socio_economic_indicators
+    build_matplotlib_dashboard = PythonOperator(
+        task_id="build_matplotlib_dashboard",
+        python_callable=build_dashboard.run_dashboard_pipeline,
+    )
+
+    load_presidential_results >> load_socio_economic_indicators >> build_matplotlib_dashboard

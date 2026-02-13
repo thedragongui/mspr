@@ -3,11 +3,18 @@
 Perimetre: region Ile-de-France (departements 75, 77, 78, 91, 92, 93, 94, 95).
 Election cible: 10 dernieres presidentielles (1969 a 2022), premier tour.
 Objectif: predire la part de vote d'un candidat/parti a partir d'indicateurs socio-economiques et d'historiques electoraux.
-Stack: Python + PostgreSQL (Docker) + Airflow + PowerBI.
+Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
 
 ## Demarrage rapide
 1) Copier `.env.example` vers `.env` et ajuster les variables.
-2) Lancer Postgres: `docker compose up -d`
+2) Lancer les services de base (Postgres + pgAdmin): `docker compose up -d`
+   - Visualisation BDD: `http://localhost:8081`
+   - Login pgAdmin: email `admin@mspr.com`, mot de passe `admin` (modifiable via `.env`).
+   - Dans pgAdmin, creer un server PostgreSQL:
+     - Hostname/address: `db`
+     - Port: `5432`
+     - Maintenance DB: `mspr_electio`
+     - Username/Password: selon `.env` (par defaut `mspr` / `mspr_password`)
 3) Creer l'env Python et installer les deps:
    - `python -m venv .venv`
    - `.venv\Scripts\Activate.ps1`
@@ -19,7 +26,10 @@ Stack: Python + PostgreSQL (Docker) + Airflow + PowerBI.
    - Les indicateurs socio-eco sont alimentes depuis la source INSEE `ODD_DEP` (dataset "Indicateurs territoriaux de developpement durable").
    - Les fichiers telecharges sont caches dans `data/raw/data_gouv_cache/`.
    - Les indicateurs actuellement charges: `unemployment_rate`, `poverty_rate`, `median_standard_of_living`, `no_diploma_rate_20_24`, `social_housing_share`.
-6) Ouvrir les notebooks ou PowerBI.
+6) Generer le dashboard Matplotlib:
+   - `python src/dashboard/build_dashboard.py`
+   - Sortie: `data/processed/dashboard/idf_dashboard_matplotlib.png`
+7) Ouvrir les notebooks si besoin.
 
 ## Orchestration Airflow
 1) Demarrer la base:
@@ -27,9 +37,9 @@ Stack: Python + PostgreSQL (Docker) + Airflow + PowerBI.
 2) Demarrer Airflow:
    - `docker compose -f docker-compose.yml -f docker-compose.airflow.yml up -d --build airflow`
 3) Ouvrir:
-   - `http://localhost:8080` (admin/admin)
+   - `http://localhost:8080` (admin/password)
 4) DAG:
-   - `mspr_idf_presidentielles_etl` (`load_presidential_results` puis `load_socio_economic_indicators`)
+   - `mspr_idf_presidentielles_etl` (`load_presidential_results` -> `load_socio_economic_indicators` -> `build_matplotlib_dashboard`)
 
 ## Livrables
 - Dossier de synthese: `docs/` (cadrage, sources, mcd, methodo)
@@ -45,10 +55,11 @@ Stack: Python + PostgreSQL (Docker) + Airflow + PowerBI.
 - `docs/` documentation projet
 - `sql/` schema Postgres
 - `src/` scripts ETL
+- `src/dashboard/` generation dashboard Matplotlib
 - `airflow/` DAGs et configuration Airflow
 - `data/raw/` sources brutes
 - `data/clean/` donnees nettoyees
 - `data/processed/` jeux de travail
 - `notebooks/` EDA + modele
-- `powerbi/` consignes PowerBI
+- `powerbi/` dossier historique (non prioritaire)
 - `slides/` support soutenance

@@ -34,7 +34,7 @@ services:
       airflow db migrate &&
       airflow users create
         --username admin
-        --password admin
+        --password password
         --firstname MSPR
         --lastname Admin
         --role Admin
