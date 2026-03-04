@@ -1,14 +1,12 @@
 # Airflow
 
 ## Lancer Airflow
-1) Demarrer la base projet:
-   - `docker compose up -d db`
-2) Demarrer Airflow:
-   - `docker compose -f docker-compose.yml -f docker-compose.airflow.yml up -d --build airflow`
+1) Demarrer Airflow (et ses dependances) depuis le compose unique:
+   - `docker compose up -d --build airflow`
 3) Ouvrir l'UI:
    - `http://localhost:8080`
    - user: `admin`
-   - password: `admin`
+   - password: `password`
 
 ## DAG disponible
 - `mspr_idf_presidentielles_etl`
@@ -17,4 +15,4 @@
   - `build_matplotlib_dashboard`
 
 ## Arreter Airflow
-- `docker compose -f docker-compose.yml -f docker-compose.airflow.yml stop airflow`
+- `docker compose stop airflow`
