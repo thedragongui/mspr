@@ -57,16 +57,10 @@ services:
       - ./airflow/plugins:/opt/airflow/plugins
     command: >
       bash -c "
-      airflow db migrate &&
-      airflow users create
-        --username admin
-        --password password
-        --firstname MSPR
-        --lastname Admin
-        --role Admin
-        --email admin@example.com || true &&
-      airflow webserver --port 8080 &
-      airflow scheduler
+      airflow db init &&
+      (airflow users create --username admin --password admin --firstname MSPR --lastname Admin --role Admin --email admin@example.com || true) || exit 1;
+      airflow scheduler &
+      exec airflow webserver --port 8080
       "
 
 volumes:

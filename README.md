@@ -9,7 +9,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
 1) Copier `.env.example` vers `.env` et ajuster les variables.
 2) Lancer tous les services (Postgres + pgAdmin + Airflow): `docker compose up -d --build`
    - Visualisation BDD: `http://localhost:8081`
-   - Interface Airflow: `http://localhost:8080` (admin/password)
+   - Interface Airflow: `http://localhost:8080` (admin/admin)
    - Login pgAdmin: email `admin@mspr.com`, mot de passe `admin` (modifiable via `.env`).
    - Dans pgAdmin, creer un server PostgreSQL:
      - Hostname/address: `db`
@@ -36,7 +36,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
 1) Demarrer Airflow (et ses dependances) depuis le compose unique:
    - `docker compose up -d --build airflow`
 2) Ouvrir:
-   - `http://localhost:8080` (admin/password)
+   - `http://localhost:8080` (admin/admin)
 3) DAG:
    - `mspr_idf_presidentielles_etl` (`load_presidential_results` -> `load_socio_economic_indicators` -> `build_matplotlib_dashboard`)
 
