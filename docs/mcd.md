@@ -1,18 +1,107 @@
-# MCD (modele conceptuel de donnees)
+# MCD (Modele Conceptuel de Donnees)
 
 ## Entites
-- geo_department (dept_code, dept_name)
-- geo_commune (insee_code, commune_name, dept_code, population, area_km2, latitude, longitude)
-- election (election_id, election_type, election_date, round, scope)
-- candidate (candidate_id, candidate_name, party_name, party_code)
-- election_result (election_id, insee_code, candidate_id, votes, vote_share, registered, votes_cast, votes_valid)
-- indicator (indicator_id, indicator_code, indicator_name, unit, source)
-- indicator_value (indicator_id, insee_code, year, value, source_file)
+- `geo_department` : departements
+  - PK: `dept_code`
+  - Attributs: `dept_name`
+- `geo_commune` : communes
+  - PK: `insee_code`
+  - FK: `dept_code -> geo_department.dept_code`
+  - Attributs: `commune_name`, `population`, `area_km2`, `latitude`, `longitude`
+- `election` : metadata des elections
+  - PK: `election_id`
+  - Attributs: `election_type`, `election_date`, `round`, `scope`
+  - Contrainte: `UNIQUE (election_type, election_date, round, scope)`
+- `candidate` : candidats
+  - PK: `candidate_id`
+  - Attributs: `candidate_name`, `party_name`, `party_code`
+- `election_result` : resultats par candidat et commune
+  - PK composite: (`election_id`, `insee_code`, `candidate_id`)
+  - FK: `election_id -> election.election_id`
+  - FK: `insee_code -> geo_commune.insee_code`
+  - FK: `candidate_id -> candidate.candidate_id`
+  - Attributs: `registered`, `votes_cast`, `votes_valid`, `votes`, `vote_share`
+- `indicator` : dictionnaire des indicateurs socio-economiques
+  - PK: `indicator_id`
+  - Attributs: `indicator_code` (unique), `indicator_name`, `unit`, `source`
+- `indicator_value` : valeurs annuelles des indicateurs par commune
+  - PK composite: (`indicator_id`, `insee_code`, `year`)
+  - FK: `indicator_id -> indicator.indicator_id`
+  - FK: `insee_code -> geo_commune.insee_code`
+  - Attributs: `value`, `source_file`
 
-## Relations
-- geo_department 1--N geo_commune
-- geo_commune 1--N election_result
-- election 1--N election_result
-- candidate 1--N election_result
-- indicator 1--N indicator_value
-- geo_commune 1--N indicator_value
+## Cardinalites
+- `geo_department` (1,1) -> (0,N) `geo_commune`
+- `geo_commune` (1,1) -> (0,N) `election_result`
+- `election` (1,1) -> (0,N) `election_result`
+- `candidate` (1,1) -> (0,N) `election_result`
+- `indicator` (1,1) -> (0,N) `indicator_value`
+- `geo_commune` (1,1) -> (0,N) `indicator_value`
+
+## Diagramme (Mermaid)
+```mermaid
+erDiagram
+    GEO_DEPARTMENT ||--o{ GEO_COMMUNE : contains
+    GEO_COMMUNE ||--o{ ELECTION_RESULT : hosts
+    ELECTION ||--o{ ELECTION_RESULT : has
+    CANDIDATE ||--o{ ELECTION_RESULT : gets
+    INDICATOR ||--o{ INDICATOR_VALUE : defines
+    GEO_COMMUNE ||--o{ INDICATOR_VALUE : measured_on
+
+    GEO_DEPARTMENT {
+        char2 dept_code PK
+        text dept_name
+    }
+
+    GEO_COMMUNE {
+        char5 insee_code PK
+        text commune_name
+        char2 dept_code FK
+        int population
+        numeric area_km2
+        numeric latitude
+        numeric longitude
+    }
+
+    ELECTION {
+        int election_id PK
+        text election_type
+        date election_date
+        smallint round
+        text scope
+    }
+
+    CANDIDATE {
+        int candidate_id PK
+        text candidate_name
+        text party_name
+        text party_code
+    }
+
+    ELECTION_RESULT {
+        int election_id PK,FK
+        char5 insee_code PK,FK
+        int candidate_id PK,FK
+        int registered
+        int votes_cast
+        int votes_valid
+        int votes
+        numeric vote_share
+    }
+
+    INDICATOR {
+        int indicator_id PK
+        text indicator_code
+        text indicator_name
+        text unit
+        text source
+    }
+
+    INDICATOR_VALUE {
+        int indicator_id PK,FK
+        char5 insee_code PK,FK
+        int year PK
+        numeric value
+        text source_file
+    }
+```

@@ -26,6 +26,7 @@ from .data import (
     FAMILIES,
     ELECTION_CONTEXT_FEATURES,
     COMMUNE_GEO_FEATURES,
+    COMMUNE_EXTRA_ODD_FEATURES,
     build_ml_dataset,
 )
 
@@ -40,6 +41,7 @@ PREDICTIONS_FILENAME = "predictions.csv"
 CORE_SOCIO = ["unemployment_rate", "poverty_rate", "turnout_rate"]
 CORE_LAGS = ["share_winner_prev", "extreme_droite_prev", "gauche_prev", "droite_prev"]
 CORE_COMMUNE_GEO = ["population_density", "population_log"]
+CORE_COMMUNE_EXTRA = ["com_social_housing_share", "com_hlm_total", "com_co2_emissions_total"]
 
 # Pour rapprocher le RÃ‚Â² de 0 : on privilÃƒÂ©gie le lag de la cible + peu de features (ÃƒÂ©vite sur-apprentissage)
 TARGET_TO_LAG = {
@@ -267,6 +269,7 @@ def _infer_extra_indicator_columns(df_columns: list[str] | None) -> list[str]:
     reserved.update(FAMILIES)
     reserved.update(SOCIO_INDICATORS)
     reserved.update(COMMUNE_GEO_FEATURES)
+    reserved.update(COMMUNE_EXTRA_ODD_FEATURES)
     reserved.update(ELECTION_CONTEXT_FEATURES)
     reserved.update(["share_winner_prev"])
     reserved.update([f"{fam}_prev" for fam in FAMILIES])
@@ -300,11 +303,13 @@ def get_feature_columns(
         socio = [c for c in CORE_SOCIO if c in SOCIO_INDICATORS]
         lags = [c for c in CORE_LAGS if c]
         commune_geo = [c for c in CORE_COMMUNE_GEO if c]
-        return socio + commune_geo + lags + ["election_number"]
+        commune_extra = [c for c in CORE_COMMUNE_EXTRA if c]
+        return socio + commune_geo + commune_extra + lags + ["election_number"]
 
     socio = [c for c in SOCIO_INDICATORS if c]
     extra_socio = _infer_extra_indicator_columns(df_columns)
     commune_geo = [c for c in COMMUNE_GEO_FEATURES if c]
+    commune_extra = [c for c in COMMUNE_EXTRA_ODD_FEATURES if c]
     election_context = [c for c in ELECTION_CONTEXT_FEATURES if c]
     lags = ["share_winner_prev"] + [f"{f}_prev" for f in FAMILIES if f]
     election_context_lags = [f"{c}_prev" for c in ELECTION_CONTEXT_FEATURES if c]
@@ -314,6 +319,7 @@ def get_feature_columns(
         socio
         + extra_socio
         + commune_geo
+        + commune_extra
         + election_context
         + lags
         + election_context_lags

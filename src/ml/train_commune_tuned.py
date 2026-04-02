@@ -109,6 +109,15 @@ def _default_full_features(df: pd.DataFrame, target: str) -> list[str]:
         "population_log",
         "latitude",
         "longitude",
+        "com_social_housing_share",
+        "com_hlm_total",
+        "com_hlm_occupied",
+        "com_hlm_vacant",
+        "com_hlm_rented",
+        "com_hlm_individuals",
+        "com_hlm_students",
+        "com_co2_emissions_total",
+        "com_co2_netab",
         "share_winner_prev",
         "extreme_gauche_prev",
         "gauche_prev",
@@ -300,4 +309,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

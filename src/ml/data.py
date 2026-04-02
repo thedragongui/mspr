@@ -4,7 +4,10 @@ Builds a flat table (year, geo_code) with features and target.
 """
 from __future__ import annotations
 
+import io
 import os
+import re
+import zipfile
 from pathlib import Path
 
 import numpy as np
@@ -96,6 +99,32 @@ COMMUNE_TRANSFER_FEATURES = [
     "droite_gap_vs_extreme",
     "gauche_gap_vs_extreme",
 ]
+
+COMMUNE_EXTRA_ODD_FEATURES = [
+    "com_social_housing_share",
+    "com_hlm_total",
+    "com_hlm_occupied",
+    "com_hlm_vacant",
+    "com_hlm_rented",
+    "com_hlm_individuals",
+    "com_hlm_students",
+    "com_co2_emissions_total",
+    "com_co2_netab",
+]
+
+COMMUNE_ODD_FEATURE_SPECS = [
+    {"feature": "com_social_housing_share", "variable": "part_pls", "sous_champ": ""},
+    {"feature": "com_hlm_total", "variable": "log_hlm_tot", "sous_champ": ""},
+    {"feature": "com_hlm_occupied", "variable": "log_hlm_phab", "sous_champ": ""},
+    {"feature": "com_hlm_vacant", "variable": "nb_vacant_pls", "sous_champ": ""},
+    {"feature": "com_hlm_rented", "variable": "nb_dest_loc_pls", "sous_champ": ""},
+    {"feature": "com_hlm_individuals", "variable": "nb_ind_pls", "sous_champ": ""},
+    {"feature": "com_hlm_students", "variable": "nb_col_etud_pls", "sous_champ": ""},
+    {"feature": "com_co2_emissions_total", "variable": "CO2_emissions", "sous_champ": "total"},
+    {"feature": "com_co2_netab", "variable": "CO2_netab", "sous_champ": ""},
+]
+
+_COMMUNE_ODD_FEATURES_CACHE: pd.DataFrame | None = None
 
 
 def _load_election_results_from_etl(scope: str = "departement") -> pd.DataFrame:
@@ -346,6 +375,95 @@ def build_socio_pivot(socio_df: pd.DataFrame) -> pd.DataFrame:
     return pivot
 
 
+def _extract_commune_odd_feature_pivot() -> pd.DataFrame:
+    """
+    Extract selected commune-level socio features from the cached ODD_COM files.
+    This augments department-level indicators with year-varying commune context.
+    """
+    global _COMMUNE_ODD_FEATURES_CACHE
+    if _COMMUNE_ODD_FEATURES_CACHE is not None:
+        return _COMMUNE_ODD_FEATURES_CACHE.copy()
+
+    feature_map = {
+        f"{spec['variable']}||{spec['sous_champ']}": spec["feature"]
+        for spec in COMMUNE_ODD_FEATURE_SPECS
+    }
+    idf_depts = set(getattr(run_etl, "TARGET_DEPT_CODES", []))
+    election_years = set(ELECTION_YEARS)
+
+    try:
+        outer_zip = run_etl._cached_download(run_etl.ODD_DEP_ZIP_URL)
+    except Exception:
+        _COMMUNE_ODD_FEATURES_CACHE = pd.DataFrame(columns=["year", "geo_code"] + COMMUNE_EXTRA_ODD_FEATURES)
+        return _COMMUNE_ODD_FEATURES_CACHE.copy()
+
+    records = []
+    try:
+        with zipfile.ZipFile(outer_zip, "r") as outer:
+            nested_bytes = outer.read("ODD_COM.zip")
+        with zipfile.ZipFile(io.BytesIO(nested_bytes), "r") as nested:
+            for csv_name in nested.namelist():
+                with nested.open(csv_name) as raw:
+                    for chunk in pd.read_csv(raw, sep=";", encoding="latin-1", chunksize=120000, dtype=str):
+                        if "codgeo" not in chunk.columns or "variable" not in chunk.columns:
+                            continue
+
+                        chunk["codgeo"] = chunk["codgeo"].astype(str).str.strip()
+                        chunk = chunk[chunk["codgeo"].str.len() == 5]
+                        chunk = chunk[chunk["codgeo"].str[:2].isin(idf_depts)]
+                        if chunk.empty:
+                            continue
+
+                        chunk["sous_champ"] = chunk["sous_champ"].fillna("").astype(str).str.strip()
+                        chunk["key"] = chunk["variable"].astype(str).str.strip() + "||" + chunk["sous_champ"]
+                        chunk = chunk[chunk["key"].isin(feature_map)]
+                        if chunk.empty:
+                            continue
+
+                        year_cols = [c for c in chunk.columns if re.fullmatch(r"A\d{4}", str(c))]
+                        if not year_cols:
+                            continue
+
+                        melted = chunk[["codgeo", "key"] + year_cols].melt(
+                            id_vars=["codgeo", "key"],
+                            value_vars=year_cols,
+                            var_name="year_col",
+                            value_name="value",
+                        )
+                        melted["year"] = melted["year_col"].str[1:].astype(int)
+                        melted = melted[melted["year"].isin(election_years)]
+                        melted["value"] = pd.to_numeric(melted["value"], errors="coerce")
+                        melted = melted.dropna(subset=["value"])
+                        if melted.empty:
+                            continue
+
+                        melted["feature"] = melted["key"].map(feature_map)
+                        melted["geo_code"] = melted["codgeo"].astype(str).str.zfill(5)
+                        records.append(melted[["year", "geo_code", "feature", "value"]])
+    except Exception:
+        _COMMUNE_ODD_FEATURES_CACHE = pd.DataFrame(columns=["year", "geo_code"] + COMMUNE_EXTRA_ODD_FEATURES)
+        return _COMMUNE_ODD_FEATURES_CACHE.copy()
+
+    if not records:
+        _COMMUNE_ODD_FEATURES_CACHE = pd.DataFrame(columns=["year", "geo_code"] + COMMUNE_EXTRA_ODD_FEATURES)
+        return _COMMUNE_ODD_FEATURES_CACHE.copy()
+
+    raw_df = pd.concat(records, ignore_index=True)
+    pivot = raw_df.pivot_table(
+        index=["year", "geo_code"],
+        columns="feature",
+        values="value",
+        aggfunc="first",
+    ).reset_index()
+
+    for col in COMMUNE_EXTRA_ODD_FEATURES:
+        if col not in pivot.columns:
+            pivot[col] = np.nan
+
+    _COMMUNE_ODD_FEATURES_CACHE = pivot
+    return _COMMUNE_ODD_FEATURES_CACHE.copy()
+
+
 def build_commune_geo_features(results_df: pd.DataFrame) -> pd.DataFrame:
     """
     Build commune-level static geographic features from geo_commune-enriched columns.
@@ -489,6 +607,9 @@ def build_ml_dataset(
     if scope == "commune":
         commune_geo = build_commune_geo_features(results_df)
         df = df.merge(commune_geo, on=["year", "geo_code", "dept_code"], how="left")
+        commune_odd = _extract_commune_odd_feature_pivot()
+        if not commune_odd.empty:
+            df = df.merge(commune_odd, on=["year", "geo_code"], how="left")
 
     family_cols = [col for col in FAMILIES if col in df.columns]
     lag_context_cols = [col for col in ELECTION_CONTEXT_FEATURES if col in df.columns]
