@@ -112,6 +112,15 @@ COMMUNE_EXTRA_ODD_FEATURES = [
     "com_co2_netab",
 ]
 
+COMMUNE_MUNICIPAL_CONTEXT_FEATURES = [
+    "municipal_turnout_rate_latest",
+    "municipal_valid_ballot_rate_latest",
+    "municipal_winner_share_latest",
+    "municipal_num_candidates_latest",
+    "municipal_hhi_latest",
+    "municipal_year_lag",
+]
+
 COMMUNE_ODD_FEATURE_SPECS = [
     {"feature": "com_social_housing_share", "variable": "part_pls", "sous_champ": ""},
     {"feature": "com_hlm_total", "variable": "log_hlm_tot", "sous_champ": ""},
@@ -464,6 +473,155 @@ def _extract_commune_odd_feature_pivot() -> pd.DataFrame:
     return _COMMUNE_ODD_FEATURES_CACHE.copy()
 
 
+def _load_commune_municipal_context_from_db() -> pd.DataFrame:
+    """
+    Load commune-level municipal election context from the database.
+    Returns one row per (municipal_year, geo_code).
+    """
+    try:
+        from src.etl.db import get_conn
+
+        conn = get_conn()
+    except Exception:
+        return pd.DataFrame(columns=["municipal_year", "geo_code"] + COMMUNE_MUNICIPAL_CONTEXT_FEATURES)
+
+    try:
+        sql = """
+        SELECT
+            EXTRACT(YEAR FROM e.election_date)::int AS municipal_year,
+            er.insee_code::text AS geo_code,
+            MAX(er.registered)::float AS registered,
+            MAX(er.votes_cast)::float AS votes_cast,
+            MAX(er.votes_valid)::float AS votes_valid,
+            MAX(er.vote_share)::float AS municipal_winner_share,
+            COUNT(DISTINCT er.candidate_id)::int AS municipal_num_candidates,
+            SUM(POWER(COALESCE(er.vote_share, 0)::numeric, 2))::float AS municipal_hhi
+        FROM election_result er
+        JOIN election e ON e.election_id = er.election_id
+        WHERE e.election_type = 'municipale'
+          AND e.round = 1
+          AND e.scope = 'commune'
+        GROUP BY municipal_year, geo_code
+        ORDER BY municipal_year, geo_code
+        """
+        df = pd.read_sql(sql, conn)
+    except Exception:
+        df = pd.DataFrame()
+    finally:
+        conn.close()
+
+    if df.empty:
+        return pd.DataFrame(columns=["municipal_year", "geo_code"] + COMMUNE_MUNICIPAL_CONTEXT_FEATURES)
+
+    df["geo_code"] = df["geo_code"].astype(str).str.strip().str.zfill(5)
+    df["municipal_year"] = pd.to_numeric(df["municipal_year"], errors="coerce")
+    df["registered"] = pd.to_numeric(df["registered"], errors="coerce")
+    df["votes_cast"] = pd.to_numeric(df["votes_cast"], errors="coerce")
+    df["votes_valid"] = pd.to_numeric(df["votes_valid"], errors="coerce")
+    df["municipal_winner_share"] = pd.to_numeric(df["municipal_winner_share"], errors="coerce")
+    df["municipal_num_candidates"] = pd.to_numeric(df["municipal_num_candidates"], errors="coerce")
+    df["municipal_hhi"] = pd.to_numeric(df["municipal_hhi"], errors="coerce")
+
+    df["municipal_turnout_rate"] = np.nan
+    reg_mask = df["registered"].notna() & (df["registered"] > 0)
+    df.loc[reg_mask, "municipal_turnout_rate"] = (
+        df.loc[reg_mask, "votes_cast"] / df.loc[reg_mask, "registered"]
+    )
+    df["municipal_turnout_rate"] = df["municipal_turnout_rate"].clip(0.0, 1.0)
+
+    df["municipal_valid_ballot_rate"] = np.nan
+    cast_mask = df["votes_cast"].notna() & (df["votes_cast"] > 0)
+    df.loc[cast_mask, "municipal_valid_ballot_rate"] = (
+        df.loc[cast_mask, "votes_valid"] / df.loc[cast_mask, "votes_cast"]
+    )
+    df["municipal_valid_ballot_rate"] = df["municipal_valid_ballot_rate"].clip(0.0, 1.0)
+
+    cols = [
+        "municipal_year",
+        "geo_code",
+        "municipal_turnout_rate",
+        "municipal_valid_ballot_rate",
+        "municipal_winner_share",
+        "municipal_num_candidates",
+        "municipal_hhi",
+    ]
+    return df[cols].dropna(subset=["municipal_year", "geo_code"]).copy()
+
+
+def _merge_latest_municipal_context(df: pd.DataFrame, use_db: bool) -> pd.DataFrame:
+    """
+    Merge latest known municipal context (year <= presidential year) at commune level.
+    """
+    out = df.copy()
+    for col in COMMUNE_MUNICIPAL_CONTEXT_FEATURES:
+        if col not in out.columns:
+            out[col] = np.nan
+
+    if not use_db or out.empty or "year" not in out.columns or "geo_code" not in out.columns:
+        return out
+
+    municipal = _load_commune_municipal_context_from_db()
+    if municipal.empty:
+        return out
+
+    left = out.copy()
+    left["_orig_idx"] = np.arange(len(left))
+    left["year"] = pd.to_numeric(left["year"], errors="coerce")
+    left["geo_code"] = left["geo_code"].astype(str).str.strip().str.zfill(5)
+    left = left.dropna(subset=["year", "geo_code"]).sort_values(["geo_code", "year"]).copy()
+    left["year"] = left["year"].astype(int)
+
+    right = municipal.copy()
+    right["municipal_year"] = pd.to_numeric(right["municipal_year"], errors="coerce")
+    right["geo_code"] = right["geo_code"].astype(str).str.strip().str.zfill(5)
+    right = right.dropna(subset=["municipal_year", "geo_code"]).sort_values(
+        ["geo_code", "municipal_year"]
+    )
+    right["municipal_year"] = right["municipal_year"].astype(int)
+
+    merged = pd.merge_asof(
+        left,
+        right,
+        left_on="year",
+        right_on="municipal_year",
+        by="geo_code",
+        direction="backward",
+    )
+
+    merged["municipal_turnout_rate_latest"] = pd.to_numeric(
+        merged["municipal_turnout_rate"], errors="coerce"
+    )
+    merged["municipal_valid_ballot_rate_latest"] = pd.to_numeric(
+        merged["municipal_valid_ballot_rate"], errors="coerce"
+    )
+    merged["municipal_winner_share_latest"] = pd.to_numeric(
+        merged["municipal_winner_share"], errors="coerce"
+    )
+    merged["municipal_num_candidates_latest"] = pd.to_numeric(
+        merged["municipal_num_candidates"], errors="coerce"
+    )
+    merged["municipal_hhi_latest"] = pd.to_numeric(merged["municipal_hhi"], errors="coerce")
+    merged["municipal_year_lag"] = (
+        pd.to_numeric(merged["year"], errors="coerce")
+        - pd.to_numeric(merged["municipal_year"], errors="coerce")
+    )
+
+    keep_cols = ["_orig_idx"] + COMMUNE_MUNICIPAL_CONTEXT_FEATURES
+    merged = merged[keep_cols].copy()
+    out = out.copy()
+    out["_orig_idx"] = np.arange(len(out))
+    out = out.merge(merged, on="_orig_idx", how="left", suffixes=("", "_new"))
+
+    for col in COMMUNE_MUNICIPAL_CONTEXT_FEATURES:
+        new_col = f"{col}_new"
+        if new_col in out.columns:
+            out[col] = out[new_col]
+            out = out.drop(columns=[new_col], errors="ignore")
+
+    out = out.drop(columns=["_orig_idx"], errors="ignore")
+    return out
+
+
 def build_commune_geo_features(results_df: pd.DataFrame) -> pd.DataFrame:
     """
     Build commune-level static geographic features from geo_commune-enriched columns.
@@ -610,6 +768,7 @@ def build_ml_dataset(
         commune_odd = _extract_commune_odd_feature_pivot()
         if not commune_odd.empty:
             df = df.merge(commune_odd, on=["year", "geo_code"], how="left")
+        df = _merge_latest_municipal_context(df, use_db=use_db)
 
     family_cols = [col for col in FAMILIES if col in df.columns]
     lag_context_cols = [col for col in ELECTION_CONTEXT_FEATURES if col in df.columns]

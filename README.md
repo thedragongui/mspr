@@ -36,6 +36,11 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
      - couverture complete 2012/2017/2022 via fichiers bureaux de vote (`txt`)
      - historique ajoute 1981/1988/1995/2002 via fichiers `cdsp_presi*t1_commp9000.csv` (communes > 9000 habitants)
      - activation via `LOAD_COMMUNE_RESULTS=true`.
+   - Chargement municipal (optionnel, source CSV locale nettoyee) :
+     - activer via `LOAD_MUNICIPAL_RESULTS=true`
+     - chemin configurable via `MUNICIPAL_RESULTS_CSV_PATH` (defaut: `data/raw/external/municipales_commune.csv`)
+     - colonnes minimales attendues: `year`, `insee_code`, `candidate_name` + (`votes` ou `vote_share`)
+     - le scope charge est `commune`, `election_type='municipale'`, `round=1`.
    - Pour charger uniquement le niveau commune manuellement: `python -c "from src.etl.run_etl import run_election_commune_pipeline; run_election_commune_pipeline()"`.
    - Les indicateurs socio-eco sont alimentes depuis la source INSEE `ODD_DEP` (dataset "Indicateurs territoriaux de developpement durable").
    - Les fichiers telecharges sont caches dans `data/raw/data_gouv_cache/`.
@@ -43,7 +48,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
      - departement (`XX000`) depuis ODD: `population` (`pop`) et `area_km2` (`surfcom`, converti en km2)
      - communes IDF depuis `geo.api.gouv.fr`: `population`, `surface` (convertie en km2), `latitude`, `longitude`
    - Desactivation via `ENRICH_GEO_FROM_ODD=false` et/ou `ENRICH_GEO_COORDS_FROM_GEO_API=false`.
-   - Les indicateurs actuellement charges: `unemployment_rate`, `unemployment_rate_youth_15_24`, `unemployment_rate_women`, `unemployment_rate_men`, `poverty_rate`, `median_standard_of_living`, `no_diploma_rate_20_24`, `social_housing_share`, `life_expectancy_women`, `life_expectancy_men`, `long_term_jobseekers_share`, `jobseekers_de_count`, `jobseekers_abc_count`, `overindebtedness_cases_count`, `turnout_rate`, `population_total`, `establishments_count`, `business_creations_count`.
+   - Les indicateurs actuellement charges: `unemployment_rate`, `unemployment_rate_youth_15_24`, `unemployment_rate_women`, `unemployment_rate_men`, `poverty_rate`, `median_standard_of_living`, `no_diploma_rate_20_24`, `social_housing_share`, `life_expectancy_women`, `life_expectancy_men`, `long_term_jobseekers_share`, `jobseekers_de_count`, `jobseekers_abc_count`, `overindebtedness_cases_count`, `turnout_rate`, `population_total`, `establishments_count`, `business_creations_count`, `business_creation_rate`, `declared_income_median`, `taxable_households_share`, `social_benefits_income_share`, `school_leavers_20_24_count`, `school_leavers_20_24_no_diploma_count`, `population_age_75_plus_count`, `population_age_75_plus_share`, `catnat_communes_flood_count`, `catnat_communes_storm_count`, `catnat_communes_drought_count`.
 6) Generer le dashboard Matplotlib:
    - `python src/dashboard/build_dashboard.py`
    - `python -m src.dashboard.build_dashboard` (depuis la racine du projet)
@@ -59,6 +64,10 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
    - Options : `--no-db` (chargement ETL sans base), `--model ridge|enet|rf|et|gbr|hgb`, `--test-years 2017,2022`, `--no-stable-r2`, `--no-core-only` (active toutes les features, y compris colonnes election agregees + indicateurs supplementaires disponibles en base), `--no-safe-predictions` (desactive le fallback securise vers le baseline lag)
    - Benchmark rapide commune (evite les runs qui stagnent): `python -m src.ml.benchmark_commune --test-years 2022 --max-seconds-per-target 150`
    - Variables d'env ML: `ML_USE_ALL_DB_INDICATORS=true|false` (defaut `true`) et `ML_EXTRA_SOCIO_INDICATORS=code1,code2`
+   - Quand des municipales `commune` sont chargees, le dataset ML ajoute automatiquement:
+     `municipal_turnout_rate_latest`, `municipal_valid_ballot_rate_latest`,
+     `municipal_winner_share_latest`, `municipal_num_candidates_latest`,
+     `municipal_hhi_latest`, `municipal_year_lag`.
    - Sorties : `data/processed/ml/model.joblib`, `data/processed/ml/metrics.json`, `data/processed/ml/predictions.csv`
    - Entrainement `commune` optimise par parti (objectif: R2 > 0 sur toutes les cibles du bloc principal):
      - `python -m src.ml.train_commune_tuned --test-years 2022 --min-train-year 2012`

@@ -45,6 +45,13 @@ ELECTION_DATE_BY_YEAR = {
     2022: "2022-04-10",
 }
 
+MUNICIPAL_ELECTION_DATE_BY_YEAR = {
+    2001: "2001-03-11",
+    2008: "2008-03-09",
+    2014: "2014-03-23",
+    2020: "2020-03-15",
+}
+
 FIRST_ROUND_XLSX_URL_BY_YEAR = {
     1969: (
         "https://static.data.gouv.fr/resources/election-presidentielle-1969-resultats-par-"
@@ -181,6 +188,15 @@ USE_CIRC_CSV_FOR_ELECTION_COUNTS = os.getenv(
     "USE_CIRC_CSV_FOR_ELECTION_COUNTS", "true"
 ).lower() in {"1", "true", "yes"}
 LOAD_COMMUNE_RESULTS = os.getenv("LOAD_COMMUNE_RESULTS", "false").lower() in {"1", "true", "yes"}
+LOAD_MUNICIPAL_RESULTS = os.getenv("LOAD_MUNICIPAL_RESULTS", "false").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+MUNICIPAL_RESULTS_CSV_PATH = os.getenv(
+    "MUNICIPAL_RESULTS_CSV_PATH",
+    "data/raw/external/municipales_commune.csv",
+)
 
 SOCIO_ECO_ODD_SPECS = [
     {
@@ -301,6 +317,83 @@ SOCIO_ECO_ODD_SPECS = [
         "unit": "nombre",
         "variable": "nb_crea_etablissements",
         "sous_champ": None,
+    },
+    {
+        "indicator_code": "business_creation_rate",
+        "indicator_name": "Taux de creations d'etablissements",
+        "unit": "%",
+        "variable": "taux_crea_etab",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "declared_income_median",
+        "indicator_name": "Revenu declare median",
+        "unit": "EUR",
+        "variable": "revenu_decl_median",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "taxable_households_share",
+        "indicator_name": "Part des foyers fiscaux imposes",
+        "unit": "%",
+        "variable": "part_foy_fisc_impos",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "social_benefits_income_share",
+        "indicator_name": "Poids des prestations sociales dans le revenu disponible",
+        "unit": "%",
+        "variable": "poids_presta_sociale_revenu_dispo",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "school_leavers_20_24_count",
+        "indicator_name": "Nombre de 20-24 ans sortis d'etudes",
+        "unit": "nombre",
+        "variable": "20_24_sortis_etudes",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "school_leavers_20_24_no_diploma_count",
+        "indicator_name": "Nombre de 20-24 ans sortis d'etudes sans diplome",
+        "unit": "nombre",
+        "variable": "20_24_sortis_etudes_nondip",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "population_age_75_plus_count",
+        "indicator_name": "Population de 75 ans ou plus",
+        "unit": "habitants",
+        "variable": "pop75",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "population_age_75_plus_share",
+        "indicator_name": "Part de la population de 75 ans ou plus",
+        "unit": "%",
+        "variable": "part_pop75",
+        "sous_champ": None,
+    },
+    {
+        "indicator_code": "catnat_communes_flood_count",
+        "indicator_name": "Communes reconnues CatNat - inondations",
+        "unit": "nombre",
+        "variable": "nb_com_catnat",
+        "sous_champ": "ino",
+    },
+    {
+        "indicator_code": "catnat_communes_storm_count",
+        "indicator_name": "Communes reconnues CatNat - tempetes",
+        "unit": "nombre",
+        "variable": "nb_com_catnat",
+        "sous_champ": "atm",
+    },
+    {
+        "indicator_code": "catnat_communes_drought_count",
+        "indicator_name": "Communes reconnues CatNat - secheresse",
+        "unit": "nombre",
+        "variable": "nb_com_catnat",
+        "sous_champ": "sec",
     },
 ]
 
@@ -1355,6 +1448,168 @@ def _collect_all_commune_results():
     return df[_commune_result_columns()]
 
 
+def _normalize_insee_code(value):
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return None
+    text = re.sub(r"[^0-9]", "", str(value).strip())
+    if not text:
+        return None
+    return text.zfill(5)[-5:]
+
+
+def _read_municipal_commune_results_csv(csv_path):
+    path = Path(csv_path)
+    if not path.exists():
+        print(f"[warn] municipal CSV not found: {path}")
+        return pd.DataFrame(columns=_commune_result_columns())
+
+    print(f"[extract] source=municipal_csv file={path}")
+    df = _read_csv_with_encoding_fallback(path)
+    if df.empty:
+        return pd.DataFrame(columns=_commune_result_columns())
+
+    df.columns = [str(c).strip() for c in df.columns]
+    normalized_cols = {_normalize_text(c): c for c in df.columns}
+
+    def _col(candidates):
+        for name in candidates:
+            if name in normalized_cols:
+                return normalized_cols[name]
+        return None
+
+    year_col = _col({"year", "annee", "an"})
+    insee_col = _col({"inseecode", "codeinsee", "codecommuneinsee", "codgeo", "codecommune"})
+    commune_name_col = _col({"commune", "nomcommune", "libelledelacommune", "communename"})
+    dept_code_col = _col({"codedepartement", "departement", "deptcode", "dept_code"})
+    candidate_col = _col(
+        {
+            "candidatename",
+            "candidat",
+            "nomcandidat",
+            "nomdeliste",
+            "tetedeliste",
+            "liste",
+        }
+    )
+    votes_col = _col({"votes", "voix", "nbvoix", "voixobtenues"})
+    votes_valid_col = _col({"votesvalid", "exprimes", "suffragesexprimes", "nbexprimes"})
+    votes_cast_col = _col({"votescast", "votants", "nbvotants"})
+    registered_col = _col({"registered", "inscrits", "nbinscrits"})
+    vote_share_col = _col({"voteshare", "part", "pourcentage", "pct", "pourcvoix"})
+    turnout_col = _col({"turnoutrate", "participation", "txparticipation"})
+
+    required_missing = []
+    if year_col is None:
+        required_missing.append("year")
+    if insee_col is None:
+        required_missing.append("insee_code")
+    if candidate_col is None:
+        required_missing.append("candidate_name")
+    if votes_col is None and vote_share_col is None:
+        required_missing.append("votes or vote_share")
+    if required_missing:
+        print(
+            "[warn] municipal CSV missing required columns: "
+            + ", ".join(required_missing)
+        )
+        return pd.DataFrame(columns=_commune_result_columns())
+
+    records = []
+    for _, row in df.iterrows():
+        year = _to_int(row.get(year_col))
+        if year is None:
+            continue
+
+        insee_code = _normalize_insee_code(row.get(insee_col))
+        if not insee_code or len(insee_code) != 5:
+            continue
+        dept_code = _normalize_dept_code(row.get(dept_code_col)) if dept_code_col else insee_code[:2]
+        if dept_code not in TARGET_DEPT_CODES:
+            continue
+
+        candidate_name = _canonical_candidate_name(row.get(candidate_col))
+        if not candidate_name:
+            continue
+
+        votes = _to_int(row.get(votes_col)) if votes_col else None
+        votes_valid = _to_int(row.get(votes_valid_col)) if votes_valid_col else None
+        votes_cast = _to_int(row.get(votes_cast_col)) if votes_cast_col else None
+        registered = _to_int(row.get(registered_col)) if registered_col else None
+
+        vote_share = None
+        if vote_share_col:
+            vote_share = _to_float(row.get(vote_share_col))
+            if vote_share is not None and vote_share > 1.0:
+                vote_share = vote_share / 100.0
+        if vote_share is None and votes is not None and votes_valid:
+            vote_share = round(votes / votes_valid, 6)
+        if votes is None and vote_share is not None and votes_valid:
+            votes = int(round(votes_valid * vote_share))
+
+        turnout_rate = None
+        if turnout_col:
+            turnout_rate = _to_float(row.get(turnout_col))
+            if turnout_rate is not None and turnout_rate > 1.0:
+                turnout_rate = turnout_rate / 100.0
+        if turnout_rate is None and registered and votes_cast is not None and registered != 0:
+            turnout_rate = round(votes_cast / registered, 6)
+
+        if vote_share is None:
+            continue
+
+        commune_name = (
+            str(row.get(commune_name_col)).strip()
+            if commune_name_col
+            else insee_code
+        )
+        if not commune_name:
+            commune_name = insee_code
+
+        records.append(
+            {
+                "year": int(year),
+                "insee_code": insee_code,
+                "commune_name": commune_name,
+                "dept_code": dept_code,
+                "candidate_name": candidate_name,
+                "registered": registered,
+                "votes_cast": votes_cast,
+                "votes_valid": votes_valid,
+                "votes": votes,
+                "vote_share": float(vote_share),
+                "turnout_rate": turnout_rate,
+            }
+        )
+
+    out = pd.DataFrame.from_records(records, columns=_commune_result_columns())
+    if out.empty:
+        return out
+
+    out = (
+        out.sort_values(["year", "insee_code", "candidate_name"])
+        .groupby(["year", "insee_code", "commune_name", "dept_code", "candidate_name"], as_index=False)
+        .agg(
+            registered=("registered", "max"),
+            votes_cast=("votes_cast", "max"),
+            votes_valid=("votes_valid", "max"),
+            votes=("votes", lambda s: s.sum(min_count=1)),
+            vote_share=("vote_share", "max"),
+            turnout_rate=("turnout_rate", "max"),
+        )
+    )
+
+    out["votes"] = pd.to_numeric(out["votes"], errors="coerce")
+    out["votes_valid"] = pd.to_numeric(out["votes_valid"], errors="coerce")
+    out["vote_share"] = pd.to_numeric(out["vote_share"], errors="coerce")
+    mask = out["votes"].notna() & out["votes_valid"].notna() & (out["votes_valid"] != 0)
+    out.loc[mask, "vote_share"] = (out.loc[mask, "votes"] / out.loc[mask, "votes_valid"]).round(6)
+    return out[_commune_result_columns()]
+
+
+def _collect_municipal_commune_results():
+    return _read_municipal_commune_results_csv(MUNICIPAL_RESULTS_CSV_PATH)
+
+
 def _collect_all_results():
     all_records = []
     loaded_years = set()
@@ -1897,9 +2152,35 @@ def _collect_socio_indicator_values():
     return values_df
 
 
-def _get_or_create_election(cur, year, scope="departement"):
-    election_type = "presidentielle"
-    election_date = ELECTION_DATE_BY_YEAR[year]
+def _resolve_election_date(year, election_type, election_date_by_year=None):
+    mapping = election_date_by_year
+    if mapping is None:
+        if election_type == "presidentielle":
+            mapping = ELECTION_DATE_BY_YEAR
+        elif election_type == "municipale":
+            mapping = MUNICIPAL_ELECTION_DATE_BY_YEAR
+        else:
+            mapping = {}
+
+    if int(year) not in mapping:
+        raise RuntimeError(
+            f"Missing election date for election_type={election_type}, year={int(year)}"
+        )
+    return mapping[int(year)]
+
+
+def _get_or_create_election(
+    cur,
+    year,
+    scope="departement",
+    election_type="presidentielle",
+    election_date_by_year=None,
+):
+    election_date = _resolve_election_date(
+        year=year,
+        election_type=election_type,
+        election_date_by_year=election_date_by_year,
+    )
     round_no = 1
 
     cur.execute(
@@ -2218,7 +2499,12 @@ def _to_db_int(value):
     return int(value)
 
 
-def _load_election_results(results_df, scope="departement"):
+def _load_election_results(
+    results_df,
+    scope="departement",
+    election_type="presidentielle",
+    election_date_by_year=None,
+):
     if results_df.empty:
         print("No election rows extracted from data.gouv.")
         return
@@ -2247,7 +2533,13 @@ def _load_election_results(results_df, scope="departement"):
 
                 candidate_cache = {}
                 for year in sorted(results_df["year"].unique()):
-                    election_id = _get_or_create_election(cur, int(year), scope=scope)
+                    election_id = _get_or_create_election(
+                        cur,
+                        int(year),
+                        scope=scope,
+                        election_type=election_type,
+                        election_date_by_year=election_date_by_year,
+                    )
                     year_df = results_df[results_df["year"] == year].copy()
                     if year_df.empty:
                         continue
@@ -2311,12 +2603,12 @@ def _load_election_results(results_df, scope="departement"):
                     )
 
                     print(
-                        f"[load] scope={scope} year={int(year)} rows={len(rows)} "
+                        f"[load] type={election_type} scope={scope} year={int(year)} rows={len(rows)} "
                         f"{'departments' if scope == 'departement' else 'communes'}="
                         f"{year_df['insee_code'].nunique() if scope == 'commune' else year_df['dept_code'].nunique()}"
                     )
 
-                if scope == "departement":
+                if scope == "departement" and election_type == "presidentielle":
                     _load_turnout_indicator_values(cur, results_df)
     finally:
         conn.close()
@@ -2348,12 +2640,53 @@ def run_election_commune_pipeline():
     )
 
 
+def run_municipal_commune_pipeline():
+    results_df = _collect_municipal_commune_results()
+    if results_df.empty:
+        raise RuntimeError(
+            "No municipal commune-level data extracted. "
+            "Set MUNICIPAL_RESULTS_CSV_PATH to a valid CSV and enable LOAD_MUNICIPAL_RESULTS=true."
+        )
+
+    supported_years = set(MUNICIPAL_ELECTION_DATE_BY_YEAR.keys())
+    available_years = sorted(set(int(y) for y in results_df["year"].dropna().unique().tolist()))
+    dropped_years = [year for year in available_years if year not in supported_years]
+    if dropped_years:
+        print(
+            "[warn] municipal years ignored (missing election date mapping): "
+            + ", ".join(str(y) for y in dropped_years)
+        )
+    results_df = results_df[results_df["year"].isin(sorted(supported_years))].copy()
+    if results_df.empty:
+        raise RuntimeError(
+            "Municipal CSV loaded but no supported years remain. "
+            "Supported years: "
+            + ", ".join(str(y) for y in sorted(MUNICIPAL_ELECTION_DATE_BY_YEAR.keys()))
+        )
+
+    _load_election_results(
+        results_df,
+        scope="commune",
+        election_type="municipale",
+        election_date_by_year=MUNICIPAL_ELECTION_DATE_BY_YEAR,
+    )
+    print(
+        "[done] loaded municipal commune-level election results for years "
+        f"{', '.join(str(y) for y in sorted(results_df['year'].unique()))} "
+        f"(communes={results_df['insee_code'].nunique()})."
+    )
+
+
 def collect_election_results_dataframe():
     return _collect_all_results()
 
 
 def collect_election_results_commune_dataframe():
     return _collect_all_commune_results()
+
+
+def collect_municipal_commune_results_dataframe():
+    return _collect_municipal_commune_results()
 
 
 def collect_socio_indicator_values_dataframe():
@@ -2387,6 +2720,8 @@ def main():
     run_election_pipeline()
     if LOAD_COMMUNE_RESULTS:
         run_election_commune_pipeline()
+    if LOAD_MUNICIPAL_RESULTS:
+        run_municipal_commune_pipeline()
     run_socio_economic_pipeline()
     return 0
 

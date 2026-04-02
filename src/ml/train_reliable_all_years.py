@@ -160,6 +160,12 @@ def _default_features(df: pd.DataFrame, target: str) -> list[str]:
         "com_hlm_students",
         "com_co2_emissions_total",
         "com_co2_netab",
+        "municipal_turnout_rate_latest",
+        "municipal_valid_ballot_rate_latest",
+        "municipal_winner_share_latest",
+        "municipal_num_candidates_latest",
+        "municipal_hhi_latest",
+        "municipal_year_lag",
         "share_winner_prev",
         "extreme_gauche_prev",
         "gauche_prev",
@@ -180,6 +186,34 @@ def _default_features(df: pd.DataFrame, target: str) -> list[str]:
     ]
     target_lag = _baseline_col_for_target(target)
     ordered = [target_lag] + [x for x in pool if x != target_lag]
+
+    reserved = {
+        "year",
+        "geo_code",
+        "dept_code",
+        "scope",
+        "target",
+        "share_winner",
+        "family",
+        "extreme_gauche",
+        "gauche",
+        "centre",
+        "droite",
+        "extreme_droite",
+        "droite_nat",
+        "divers",
+        "autre",
+    }
+    reserved.update(pool)
+    reserved.update([f"{x}_prev" for x in ["registered", "votes_cast", "votes_valid", "votes"]])
+    dynamic_extra = [
+        col
+        for col in df.columns
+        if col not in reserved
+        and not col.endswith("_prev")
+        and f"{col}_prev" not in df.columns
+    ]
+    ordered += dynamic_extra
     return [x for x in ordered if x in df.columns]
 
 

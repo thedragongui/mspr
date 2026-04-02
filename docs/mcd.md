@@ -1,5 +1,7 @@
 # MCD (Modele Conceptuel de Donnees)
 
+Version: 2026-04-02
+
 ## Entites
 - `geo_department` : departements
   - PK: `dept_code`
@@ -11,6 +13,9 @@
 - `election` : metadata des elections
   - PK: `election_id`
   - Attributs: `election_type`, `election_date`, `round`, `scope`
+  - Domaines utilises:
+    - `election_type`: `presidentielle`, `municipale`
+    - `scope`: `departement`, `commune`
   - Contrainte: `UNIQUE (election_type, election_date, round, scope)`
 - `candidate` : candidats
   - PK: `candidate_id`
@@ -38,15 +43,24 @@
 - `indicator` (1,1) -> (0,N) `indicator_value`
 - `geo_commune` (1,1) -> (0,N) `indicator_value`
 
-## Diagramme (Mermaid)
+## Regles De Gestion
+- Les resultats au niveau departement sont stockes avec un `insee_code` synthetique de type `XX000` dans `geo_commune`.
+- Les resultats au niveau commune utilisent le vrai code INSEE a 5 caracteres.
+- Le catalogue `indicator` est extensible (nouvelles variables socio, revenus, education, demographie, environnement/CatNat) sans changer le schema relationnel.
+
+## Schema MCD (Mermaid)
 ```mermaid
 erDiagram
-    GEO_DEPARTMENT ||--o{ GEO_COMMUNE : contains
-    GEO_COMMUNE ||--o{ ELECTION_RESULT : hosts
-    ELECTION ||--o{ ELECTION_RESULT : has
-    CANDIDATE ||--o{ ELECTION_RESULT : gets
-    INDICATOR ||--o{ INDICATOR_VALUE : defines
-    GEO_COMMUNE ||--o{ INDICATOR_VALUE : measured_on
+    GEO_DEPARTMENT ||--o{ GEO_COMMUNE : contient
+    GEO_COMMUNE ||--o{ ELECTION_RESULT : porte
+    ELECTION ||--o{ ELECTION_RESULT : genere
+    CANDIDATE ||--o{ ELECTION_RESULT : obtient
+    INDICATOR ||--o{ INDICATOR_VALUE : definit
+    GEO_COMMUNE ||--o{ INDICATOR_VALUE : mesure_sur
+
+    %% Domaines metier utilises:
+    %% ELECTION.election_type = presidentielle | municipale
+    %% ELECTION.scope = departement | commune
 
     GEO_DEPARTMENT {
         char2 dept_code PK

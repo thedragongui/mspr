@@ -25,6 +25,11 @@ Objectif: couvrir la region Ile-de-France avec des donnees election + indicateur
     - 2022: `resultats-par-niveau-burvot-t1-france-entiere.txt` (agregation commune)
     - Note couverture: 1981-2002 est partiel (grandes communes), 2012-2022 est quasi exhaustif.
     - Filtre geographique IDF applique: 75, 77, 78, 91, 92, 93, 94, 95.
+  - Municipales (optionnel, CSV local):
+    - ETL supporte un import `election_type='municipale'`, `scope='commune'`, `round=1`
+    - activation: `LOAD_MUNICIPAL_RESULTS=true`
+    - fichier: `MUNICIPAL_RESULTS_CSV_PATH` (defaut `data/raw/external/municipales_commune.csv`)
+    - colonnes minimales: `year`, `insee_code`, `candidate_name` + (`votes` ou `vote_share`)
 
 ## Securite
 - data.gouv.fr: https://www.data.gouv.fr/fr/pages/donnees-securite/
@@ -58,6 +63,20 @@ Objectif: couvrir la region Ile-de-France avec des donnees election + indicateur
   - `jobseekers_de_count` -> variable `nb_deld`
   - `jobseekers_abc_count` -> variable `nb_deABC`
   - `overindebtedness_cases_count` -> variable `nb_dossiers_deposes`
+  - `population_total` -> variable `pop`
+  - `establishments_count` -> variable `nb_etablissements`
+  - `business_creations_count` -> variable `nb_crea_etablissements`
+  - `business_creation_rate` -> variable `taux_crea_etab`
+  - `declared_income_median` -> variable `revenu_decl_median`
+  - `taxable_households_share` -> variable `part_foy_fisc_impos`
+  - `social_benefits_income_share` -> variable `poids_presta_sociale_revenu_dispo`
+  - `school_leavers_20_24_count` -> variable `20_24_sortis_etudes`
+  - `school_leavers_20_24_no_diploma_count` -> variable `20_24_sortis_etudes_nondip`
+  - `population_age_75_plus_count` -> variable `pop75`
+  - `population_age_75_plus_share` -> variable `part_pop75`
+  - `catnat_communes_flood_count` -> variable `nb_com_catnat` (`sous_champ=ino`)
+  - `catnat_communes_storm_count` -> variable `nb_com_catnat` (`sous_champ=atm`)
+  - `catnat_communes_drought_count` -> variable `nb_com_catnat` (`sous_champ=sec`)
 
 ## Notes
 - Filtrer sur les departements IDF: 75, 77, 78, 91, 92, 93, 94, 95
