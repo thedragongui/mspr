@@ -49,6 +49,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
      - communes IDF depuis `geo.api.gouv.fr`: `population`, `surface` (convertie en km2), `latitude`, `longitude`
    - Desactivation via `ENRICH_GEO_FROM_ODD=false` et/ou `ENRICH_GEO_COORDS_FROM_GEO_API=false`.
    - Les indicateurs actuellement charges: `unemployment_rate`, `unemployment_rate_youth_15_24`, `unemployment_rate_women`, `unemployment_rate_men`, `poverty_rate`, `median_standard_of_living`, `no_diploma_rate_20_24`, `social_housing_share`, `life_expectancy_women`, `life_expectancy_men`, `long_term_jobseekers_share`, `jobseekers_de_count`, `jobseekers_abc_count`, `overindebtedness_cases_count`, `turnout_rate`, `population_total`, `establishments_count`, `business_creations_count`, `business_creation_rate`, `declared_income_median`, `taxable_households_share`, `social_benefits_income_share`, `school_leavers_20_24_count`, `school_leavers_20_24_no_diploma_count`, `population_age_75_plus_count`, `population_age_75_plus_share`, `catnat_communes_flood_count`, `catnat_communes_storm_count`, `catnat_communes_drought_count`.
+   - Datamarts thematiques auto-crees/remplis en base: `commune_year_economy`, `commune_year_education`, `commune_year_demography`, `commune_year_environment`, `commune_year_election_context`.
 6) Generer le dashboard Matplotlib:
    - `python src/dashboard/build_dashboard.py`
    - `python -m src.dashboard.build_dashboard` (depuis la racine du projet)

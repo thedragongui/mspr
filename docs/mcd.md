@@ -34,6 +34,33 @@ Version: 2026-04-02
   - FK: `indicator_id -> indicator.indicator_id`
   - FK: `insee_code -> geo_commune.insee_code`
   - Attributs: `value`, `source_file`
+- `commune_year_economy` : table thematique economie (an, territoire)
+  - PK composite: (`insee_code`, `year`)
+  - FK: `insee_code -> geo_commune.insee_code`
+  - Attributs: `median_standard_of_living`, `declared_income_median`,
+    `taxable_households_share`, `social_benefits_income_share`,
+    `establishments_count`, `business_creations_count`, `business_creation_rate`,
+    `unemployment_rate`, `poverty_rate`
+- `commune_year_education` : table thematique education (an, territoire)
+  - PK composite: (`insee_code`, `year`)
+  - FK: `insee_code -> geo_commune.insee_code`
+  - Attributs: `no_diploma_rate_20_24`, `school_leavers_20_24_count`,
+    `school_leavers_20_24_no_diploma_count`
+- `commune_year_demography` : table thematique demographie (an, territoire)
+  - PK composite: (`insee_code`, `year`)
+  - FK: `insee_code -> geo_commune.insee_code`
+  - Attributs: `population_total`, `population_age_75_plus_count`,
+    `population_age_75_plus_share`, `life_expectancy_women`, `life_expectancy_men`
+- `commune_year_environment` : table thematique environnement (an, territoire)
+  - PK composite: (`insee_code`, `year`)
+  - FK: `insee_code -> geo_commune.insee_code`
+  - Attributs: `social_housing_share`, `catnat_communes_flood_count`,
+    `catnat_communes_storm_count`, `catnat_communes_drought_count`
+- `commune_year_election_context` : contexte electoral agrege (an, tour, territoire)
+  - PK composite: (`election_type`, `round`, `year`, `insee_code`)
+  - FK: `insee_code -> geo_commune.insee_code`
+  - Attributs: `registered`, `votes_cast`, `votes_valid`, `turnout_rate`,
+    `valid_ballot_rate`, `invalid_ballot_rate`, `winner_share`, `candidate_count`
 
 ## Cardinalites
 - `geo_department` (1,1) -> (0,N) `geo_commune`
@@ -42,6 +69,11 @@ Version: 2026-04-02
 - `candidate` (1,1) -> (0,N) `election_result`
 - `indicator` (1,1) -> (0,N) `indicator_value`
 - `geo_commune` (1,1) -> (0,N) `indicator_value`
+- `geo_commune` (1,1) -> (0,N) `commune_year_economy`
+- `geo_commune` (1,1) -> (0,N) `commune_year_education`
+- `geo_commune` (1,1) -> (0,N) `commune_year_demography`
+- `geo_commune` (1,1) -> (0,N) `commune_year_environment`
+- `geo_commune` (1,1) -> (0,N) `commune_year_election_context`
 
 ## Regles De Gestion
 - Les resultats au niveau departement sont stockes avec un `insee_code` synthetique de type `XX000` dans `geo_commune`.
@@ -57,6 +89,11 @@ erDiagram
     CANDIDATE ||--o{ ELECTION_RESULT : obtient
     INDICATOR ||--o{ INDICATOR_VALUE : definit
     GEO_COMMUNE ||--o{ INDICATOR_VALUE : mesure_sur
+    GEO_COMMUNE ||--o{ COMMUNE_YEAR_ECONOMY : decrit_par
+    GEO_COMMUNE ||--o{ COMMUNE_YEAR_EDUCATION : decrit_par
+    GEO_COMMUNE ||--o{ COMMUNE_YEAR_DEMOGRAPHY : decrit_par
+    GEO_COMMUNE ||--o{ COMMUNE_YEAR_ENVIRONMENT : decrit_par
+    GEO_COMMUNE ||--o{ COMMUNE_YEAR_ELECTION_CONTEXT : contexte
 
     %% Domaines metier utilises:
     %% ELECTION.election_type = presidentielle | municipale
@@ -117,5 +154,61 @@ erDiagram
         int year PK
         numeric value
         text source_file
+    }
+
+    COMMUNE_YEAR_ECONOMY {
+        char5 insee_code PK,FK
+        int year PK
+        numeric median_standard_of_living
+        numeric declared_income_median
+        numeric taxable_households_share
+        numeric social_benefits_income_share
+        numeric establishments_count
+        numeric business_creations_count
+        numeric business_creation_rate
+        numeric unemployment_rate
+        numeric poverty_rate
+    }
+
+    COMMUNE_YEAR_EDUCATION {
+        char5 insee_code PK,FK
+        int year PK
+        numeric no_diploma_rate_20_24
+        numeric school_leavers_20_24_count
+        numeric school_leavers_20_24_no_diploma_count
+    }
+
+    COMMUNE_YEAR_DEMOGRAPHY {
+        char5 insee_code PK,FK
+        int year PK
+        numeric population_total
+        numeric population_age_75_plus_count
+        numeric population_age_75_plus_share
+        numeric life_expectancy_women
+        numeric life_expectancy_men
+    }
+
+    COMMUNE_YEAR_ENVIRONMENT {
+        char5 insee_code PK,FK
+        int year PK
+        numeric social_housing_share
+        numeric catnat_communes_flood_count
+        numeric catnat_communes_storm_count
+        numeric catnat_communes_drought_count
+    }
+
+    COMMUNE_YEAR_ELECTION_CONTEXT {
+        text election_type PK
+        smallint round PK
+        int year PK
+        char5 insee_code PK,FK
+        int registered
+        int votes_cast
+        int votes_valid
+        numeric turnout_rate
+        numeric valid_ballot_rate
+        numeric invalid_ballot_rate
+        numeric winner_share
+        int candidate_count
     }
 ```

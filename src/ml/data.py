@@ -121,6 +121,30 @@ COMMUNE_MUNICIPAL_CONTEXT_FEATURES = [
     "municipal_year_lag",
 ]
 
+COMMUNE_THEMATIC_DB_FEATURES = [
+    "eco_median_standard_of_living",
+    "eco_declared_income_median",
+    "eco_taxable_households_share",
+    "eco_social_benefits_income_share",
+    "eco_establishments_count",
+    "eco_business_creations_count",
+    "eco_business_creation_rate",
+    "eco_unemployment_rate",
+    "eco_poverty_rate",
+    "edu_no_diploma_rate_20_24",
+    "edu_school_leavers_20_24_count",
+    "edu_school_leavers_20_24_no_diploma_count",
+    "demo_population_total",
+    "demo_population_age_75_plus_count",
+    "demo_population_age_75_plus_share",
+    "demo_life_expectancy_women",
+    "demo_life_expectancy_men",
+    "env_social_housing_share",
+    "env_catnat_communes_flood_count",
+    "env_catnat_communes_storm_count",
+    "env_catnat_communes_drought_count",
+]
+
 COMMUNE_ODD_FEATURE_SPECS = [
     {"feature": "com_social_housing_share", "variable": "part_pls", "sous_champ": ""},
     {"feature": "com_hlm_total", "variable": "log_hlm_tot", "sous_champ": ""},
@@ -622,6 +646,115 @@ def _merge_latest_municipal_context(df: pd.DataFrame, use_db: bool) -> pd.DataFr
     return out
 
 
+def _load_commune_thematic_features_from_db() -> pd.DataFrame:
+    """
+    Load wide thematic features from yearly thematic DB tables.
+    """
+    try:
+        from src.etl.db import get_conn
+
+        conn = get_conn()
+    except Exception:
+        return pd.DataFrame(columns=["year", "insee_code"] + COMMUNE_THEMATIC_DB_FEATURES)
+
+    try:
+        sql = """
+        SELECT
+            COALESCE(e.insee_code, ed.insee_code, d.insee_code, env.insee_code) AS insee_code,
+            COALESCE(e.year, ed.year, d.year, env.year) AS year,
+            e.median_standard_of_living AS eco_median_standard_of_living,
+            e.declared_income_median AS eco_declared_income_median,
+            e.taxable_households_share AS eco_taxable_households_share,
+            e.social_benefits_income_share AS eco_social_benefits_income_share,
+            e.establishments_count AS eco_establishments_count,
+            e.business_creations_count AS eco_business_creations_count,
+            e.business_creation_rate AS eco_business_creation_rate,
+            e.unemployment_rate AS eco_unemployment_rate,
+            e.poverty_rate AS eco_poverty_rate,
+            ed.no_diploma_rate_20_24 AS edu_no_diploma_rate_20_24,
+            ed.school_leavers_20_24_count AS edu_school_leavers_20_24_count,
+            ed.school_leavers_20_24_no_diploma_count AS edu_school_leavers_20_24_no_diploma_count,
+            d.population_total AS demo_population_total,
+            d.population_age_75_plus_count AS demo_population_age_75_plus_count,
+            d.population_age_75_plus_share AS demo_population_age_75_plus_share,
+            d.life_expectancy_women AS demo_life_expectancy_women,
+            d.life_expectancy_men AS demo_life_expectancy_men,
+            env.social_housing_share AS env_social_housing_share,
+            env.catnat_communes_flood_count AS env_catnat_communes_flood_count,
+            env.catnat_communes_storm_count AS env_catnat_communes_storm_count,
+            env.catnat_communes_drought_count AS env_catnat_communes_drought_count
+        FROM commune_year_economy e
+        FULL OUTER JOIN commune_year_education ed
+            ON ed.insee_code = e.insee_code AND ed.year = e.year
+        FULL OUTER JOIN commune_year_demography d
+            ON d.insee_code = COALESCE(e.insee_code, ed.insee_code)
+           AND d.year = COALESCE(e.year, ed.year)
+        FULL OUTER JOIN commune_year_environment env
+            ON env.insee_code = COALESCE(e.insee_code, ed.insee_code, d.insee_code)
+           AND env.year = COALESCE(e.year, ed.year, d.year)
+        """
+        df = pd.read_sql(sql, conn)
+    except Exception:
+        df = pd.DataFrame()
+    finally:
+        conn.close()
+
+    if df.empty:
+        return pd.DataFrame(columns=["year", "insee_code"] + COMMUNE_THEMATIC_DB_FEATURES)
+
+    df["insee_code"] = df["insee_code"].astype(str).str.strip().str.zfill(5)
+    df["year"] = pd.to_numeric(df["year"], errors="coerce")
+    df = df.dropna(subset=["year", "insee_code"]).copy()
+    df["year"] = df["year"].astype(int)
+    for col in COMMUNE_THEMATIC_DB_FEATURES:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+        else:
+            df[col] = np.nan
+    return df[["year", "insee_code"] + COMMUNE_THEMATIC_DB_FEATURES]
+
+
+def _merge_commune_thematic_features(df: pd.DataFrame, use_db: bool) -> pd.DataFrame:
+    """
+    Merge thematic DB tables on commune, with fallback on department proxy code XX000.
+    """
+    out = df.copy()
+    for col in COMMUNE_THEMATIC_DB_FEATURES:
+        if col not in out.columns:
+            out[col] = np.nan
+
+    if not use_db or out.empty or "year" not in out.columns or "geo_code" not in out.columns:
+        return out
+
+    thematic = _load_commune_thematic_features_from_db()
+    if thematic.empty:
+        return out
+
+    direct = thematic.rename(columns={"insee_code": "geo_code"})
+    out = out.merge(direct, on=["year", "geo_code"], how="left", suffixes=("", "_direct"))
+    for col in COMMUNE_THEMATIC_DB_FEATURES:
+        col_direct = f"{col}_direct"
+        if col_direct in out.columns:
+            out[col] = out[col].combine_first(out[col_direct])
+            out = out.drop(columns=[col_direct], errors="ignore")
+
+    dept_fallback = thematic.copy()
+    dept_fallback = dept_fallback[dept_fallback["insee_code"].str.endswith("000")].copy()
+    if dept_fallback.empty:
+        return out
+
+    dept_fallback["dept_code"] = dept_fallback["insee_code"].astype(str).str[:2]
+    dept_cols = ["year", "dept_code"] + COMMUNE_THEMATIC_DB_FEATURES
+    dept_fallback = dept_fallback[dept_cols].drop_duplicates(subset=["year", "dept_code"], keep="last")
+    out = out.merge(dept_fallback, on=["year", "dept_code"], how="left", suffixes=("", "_dept"))
+    for col in COMMUNE_THEMATIC_DB_FEATURES:
+        col_dept = f"{col}_dept"
+        if col_dept in out.columns:
+            out[col] = out[col].combine_first(out[col_dept])
+            out = out.drop(columns=[col_dept], errors="ignore")
+    return out
+
+
 def build_commune_geo_features(results_df: pd.DataFrame) -> pd.DataFrame:
     """
     Build commune-level static geographic features from geo_commune-enriched columns.
@@ -768,6 +901,7 @@ def build_ml_dataset(
         commune_odd = _extract_commune_odd_feature_pivot()
         if not commune_odd.empty:
             df = df.merge(commune_odd, on=["year", "geo_code"], how="left")
+        df = _merge_commune_thematic_features(df, use_db=use_db)
         df = _merge_latest_municipal_context(df, use_db=use_db)
 
     family_cols = [col for col in FAMILIES if col in df.columns]

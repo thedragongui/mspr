@@ -82,6 +82,12 @@ Objectif: couvrir la region Ile-de-France avec des donnees election + indicateur
 - Filtrer sur les departements IDF: 75, 77, 78, 91, 92, 93, 94, 95
 - Normaliser la cle geo en `insee_code` de type `XX000` pour la maille departementale
 - Prioriser les sources avec identifiants INSEE stables
+- Datamarts thematiques alimentes par ETL:
+  - `commune_year_economy`
+  - `commune_year_education`
+  - `commune_year_demography`
+  - `commune_year_environment`
+  - `commune_year_election_context`
 
 ## Criteres d'analyse des donnees (grille d'evaluation MSPR)
 - [ ] Besoins en donnees des metiers collectes a partir du cahier des charges.

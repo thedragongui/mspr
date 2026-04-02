@@ -28,6 +28,7 @@ from .data import (
     COMMUNE_GEO_FEATURES,
     COMMUNE_EXTRA_ODD_FEATURES,
     COMMUNE_MUNICIPAL_CONTEXT_FEATURES,
+    COMMUNE_THEMATIC_DB_FEATURES,
     build_ml_dataset,
 )
 
@@ -44,6 +45,7 @@ CORE_LAGS = ["share_winner_prev", "extreme_droite_prev", "gauche_prev", "droite_
 CORE_COMMUNE_GEO = ["population_density", "population_log"]
 CORE_COMMUNE_EXTRA = ["com_social_housing_share", "com_hlm_total", "com_co2_emissions_total"]
 CORE_COMMUNE_MUNICIPAL = ["municipal_turnout_rate_latest", "municipal_winner_share_latest"]
+CORE_COMMUNE_THEMATIC = ["eco_unemployment_rate", "eco_declared_income_median", "edu_no_diploma_rate_20_24"]
 
 # Pour rapprocher le RÃ‚Â² de 0 : on privilÃƒÂ©gie le lag de la cible + peu de features (ÃƒÂ©vite sur-apprentissage)
 TARGET_TO_LAG = {
@@ -273,6 +275,7 @@ def _infer_extra_indicator_columns(df_columns: list[str] | None) -> list[str]:
     reserved.update(COMMUNE_GEO_FEATURES)
     reserved.update(COMMUNE_EXTRA_ODD_FEATURES)
     reserved.update(COMMUNE_MUNICIPAL_CONTEXT_FEATURES)
+    reserved.update(COMMUNE_THEMATIC_DB_FEATURES)
     reserved.update(ELECTION_CONTEXT_FEATURES)
     reserved.update(["share_winner_prev"])
     reserved.update([f"{fam}_prev" for fam in FAMILIES])
@@ -308,13 +311,15 @@ def get_feature_columns(
         commune_geo = [c for c in CORE_COMMUNE_GEO if c]
         commune_extra = [c for c in CORE_COMMUNE_EXTRA if c]
         commune_municipal = [c for c in CORE_COMMUNE_MUNICIPAL if c]
-        return socio + commune_geo + commune_extra + commune_municipal + lags + ["election_number"]
+        commune_thematic = [c for c in CORE_COMMUNE_THEMATIC if c]
+        return socio + commune_geo + commune_extra + commune_municipal + commune_thematic + lags + ["election_number"]
 
     socio = [c for c in SOCIO_INDICATORS if c]
     extra_socio = _infer_extra_indicator_columns(df_columns)
     commune_geo = [c for c in COMMUNE_GEO_FEATURES if c]
     commune_extra = [c for c in COMMUNE_EXTRA_ODD_FEATURES if c]
     commune_municipal = [c for c in COMMUNE_MUNICIPAL_CONTEXT_FEATURES if c]
+    commune_thematic = [c for c in COMMUNE_THEMATIC_DB_FEATURES if c]
     election_context = [c for c in ELECTION_CONTEXT_FEATURES if c]
     lags = ["share_winner_prev"] + [f"{f}_prev" for f in FAMILIES if f]
     election_context_lags = [f"{c}_prev" for c in ELECTION_CONTEXT_FEATURES if c]
@@ -326,6 +331,7 @@ def get_feature_columns(
         + commune_geo
         + commune_extra
         + commune_municipal
+        + commune_thematic
         + election_context
         + lags
         + election_context_lags

@@ -2403,6 +2403,314 @@ def _ensure_indicator_catalog(cur):
     )
 
 
+def _ensure_feature_tables(cur):
+    ddl_statements = [
+        """
+        CREATE TABLE IF NOT EXISTS commune_year_economy (
+          insee_code char(5) NOT NULL REFERENCES geo_commune (insee_code),
+          year integer NOT NULL,
+          median_standard_of_living numeric,
+          declared_income_median numeric,
+          taxable_households_share numeric,
+          social_benefits_income_share numeric,
+          establishments_count numeric,
+          business_creations_count numeric,
+          business_creation_rate numeric,
+          unemployment_rate numeric,
+          poverty_rate numeric,
+          PRIMARY KEY (insee_code, year)
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS commune_year_education (
+          insee_code char(5) NOT NULL REFERENCES geo_commune (insee_code),
+          year integer NOT NULL,
+          no_diploma_rate_20_24 numeric,
+          school_leavers_20_24_count numeric,
+          school_leavers_20_24_no_diploma_count numeric,
+          PRIMARY KEY (insee_code, year)
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS commune_year_demography (
+          insee_code char(5) NOT NULL REFERENCES geo_commune (insee_code),
+          year integer NOT NULL,
+          population_total numeric,
+          population_age_75_plus_count numeric,
+          population_age_75_plus_share numeric,
+          life_expectancy_women numeric,
+          life_expectancy_men numeric,
+          PRIMARY KEY (insee_code, year)
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS commune_year_environment (
+          insee_code char(5) NOT NULL REFERENCES geo_commune (insee_code),
+          year integer NOT NULL,
+          social_housing_share numeric,
+          catnat_communes_flood_count numeric,
+          catnat_communes_storm_count numeric,
+          catnat_communes_drought_count numeric,
+          PRIMARY KEY (insee_code, year)
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS commune_year_election_context (
+          election_type text NOT NULL,
+          round smallint NOT NULL,
+          year integer NOT NULL,
+          insee_code char(5) NOT NULL REFERENCES geo_commune (insee_code),
+          registered integer,
+          votes_cast integer,
+          votes_valid integer,
+          turnout_rate numeric,
+          valid_ballot_rate numeric,
+          invalid_ballot_rate numeric,
+          winner_share numeric,
+          candidate_count integer,
+          PRIMARY KEY (election_type, round, year, insee_code)
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS idx_commune_year_economy_year ON commune_year_economy (year)",
+        "CREATE INDEX IF NOT EXISTS idx_commune_year_education_year ON commune_year_education (year)",
+        "CREATE INDEX IF NOT EXISTS idx_commune_year_demography_year ON commune_year_demography (year)",
+        "CREATE INDEX IF NOT EXISTS idx_commune_year_environment_year ON commune_year_environment (year)",
+        "CREATE INDEX IF NOT EXISTS idx_commune_year_election_context_year ON commune_year_election_context (year)",
+    ]
+    for sql in ddl_statements:
+        cur.execute(sql)
+
+
+def _refresh_commune_feature_tables_from_indicators(cur):
+    # Economy
+    cur.execute(
+        """
+        INSERT INTO commune_year_economy (
+            insee_code,
+            year,
+            median_standard_of_living,
+            declared_income_median,
+            taxable_households_share,
+            social_benefits_income_share,
+            establishments_count,
+            business_creations_count,
+            business_creation_rate,
+            unemployment_rate,
+            poverty_rate
+        )
+        SELECT
+            iv.insee_code,
+            iv.year,
+            MAX(CASE WHEN i.indicator_code = 'median_standard_of_living' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'declared_income_median' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'taxable_households_share' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'social_benefits_income_share' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'establishments_count' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'business_creations_count' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'business_creation_rate' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'unemployment_rate' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'poverty_rate' THEN iv.value END)
+        FROM indicator_value iv
+        JOIN indicator i ON i.indicator_id = iv.indicator_id
+        WHERE i.indicator_code IN (
+            'median_standard_of_living',
+            'declared_income_median',
+            'taxable_households_share',
+            'social_benefits_income_share',
+            'establishments_count',
+            'business_creations_count',
+            'business_creation_rate',
+            'unemployment_rate',
+            'poverty_rate'
+        )
+        GROUP BY iv.insee_code, iv.year
+        ON CONFLICT (insee_code, year) DO UPDATE
+        SET
+            median_standard_of_living = EXCLUDED.median_standard_of_living,
+            declared_income_median = EXCLUDED.declared_income_median,
+            taxable_households_share = EXCLUDED.taxable_households_share,
+            social_benefits_income_share = EXCLUDED.social_benefits_income_share,
+            establishments_count = EXCLUDED.establishments_count,
+            business_creations_count = EXCLUDED.business_creations_count,
+            business_creation_rate = EXCLUDED.business_creation_rate,
+            unemployment_rate = EXCLUDED.unemployment_rate,
+            poverty_rate = EXCLUDED.poverty_rate
+        """
+    )
+
+    # Education
+    cur.execute(
+        """
+        INSERT INTO commune_year_education (
+            insee_code,
+            year,
+            no_diploma_rate_20_24,
+            school_leavers_20_24_count,
+            school_leavers_20_24_no_diploma_count
+        )
+        SELECT
+            iv.insee_code,
+            iv.year,
+            MAX(CASE WHEN i.indicator_code = 'no_diploma_rate_20_24' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'school_leavers_20_24_count' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'school_leavers_20_24_no_diploma_count' THEN iv.value END)
+        FROM indicator_value iv
+        JOIN indicator i ON i.indicator_id = iv.indicator_id
+        WHERE i.indicator_code IN (
+            'no_diploma_rate_20_24',
+            'school_leavers_20_24_count',
+            'school_leavers_20_24_no_diploma_count'
+        )
+        GROUP BY iv.insee_code, iv.year
+        ON CONFLICT (insee_code, year) DO UPDATE
+        SET
+            no_diploma_rate_20_24 = EXCLUDED.no_diploma_rate_20_24,
+            school_leavers_20_24_count = EXCLUDED.school_leavers_20_24_count,
+            school_leavers_20_24_no_diploma_count = EXCLUDED.school_leavers_20_24_no_diploma_count
+        """
+    )
+
+    # Demography
+    cur.execute(
+        """
+        INSERT INTO commune_year_demography (
+            insee_code,
+            year,
+            population_total,
+            population_age_75_plus_count,
+            population_age_75_plus_share,
+            life_expectancy_women,
+            life_expectancy_men
+        )
+        SELECT
+            iv.insee_code,
+            iv.year,
+            MAX(CASE WHEN i.indicator_code = 'population_total' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'population_age_75_plus_count' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'population_age_75_plus_share' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'life_expectancy_women' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'life_expectancy_men' THEN iv.value END)
+        FROM indicator_value iv
+        JOIN indicator i ON i.indicator_id = iv.indicator_id
+        WHERE i.indicator_code IN (
+            'population_total',
+            'population_age_75_plus_count',
+            'population_age_75_plus_share',
+            'life_expectancy_women',
+            'life_expectancy_men'
+        )
+        GROUP BY iv.insee_code, iv.year
+        ON CONFLICT (insee_code, year) DO UPDATE
+        SET
+            population_total = EXCLUDED.population_total,
+            population_age_75_plus_count = EXCLUDED.population_age_75_plus_count,
+            population_age_75_plus_share = EXCLUDED.population_age_75_plus_share,
+            life_expectancy_women = EXCLUDED.life_expectancy_women,
+            life_expectancy_men = EXCLUDED.life_expectancy_men
+        """
+    )
+
+    # Environment
+    cur.execute(
+        """
+        INSERT INTO commune_year_environment (
+            insee_code,
+            year,
+            social_housing_share,
+            catnat_communes_flood_count,
+            catnat_communes_storm_count,
+            catnat_communes_drought_count
+        )
+        SELECT
+            iv.insee_code,
+            iv.year,
+            MAX(CASE WHEN i.indicator_code = 'social_housing_share' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'catnat_communes_flood_count' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'catnat_communes_storm_count' THEN iv.value END),
+            MAX(CASE WHEN i.indicator_code = 'catnat_communes_drought_count' THEN iv.value END)
+        FROM indicator_value iv
+        JOIN indicator i ON i.indicator_id = iv.indicator_id
+        WHERE i.indicator_code IN (
+            'social_housing_share',
+            'catnat_communes_flood_count',
+            'catnat_communes_storm_count',
+            'catnat_communes_drought_count'
+        )
+        GROUP BY iv.insee_code, iv.year
+        ON CONFLICT (insee_code, year) DO UPDATE
+        SET
+            social_housing_share = EXCLUDED.social_housing_share,
+            catnat_communes_flood_count = EXCLUDED.catnat_communes_flood_count,
+            catnat_communes_storm_count = EXCLUDED.catnat_communes_storm_count,
+            catnat_communes_drought_count = EXCLUDED.catnat_communes_drought_count
+        """
+    )
+
+
+def _refresh_commune_election_context_table(cur):
+    cur.execute(
+        """
+        INSERT INTO commune_year_election_context (
+            election_type,
+            round,
+            year,
+            insee_code,
+            registered,
+            votes_cast,
+            votes_valid,
+            turnout_rate,
+            valid_ballot_rate,
+            invalid_ballot_rate,
+            winner_share,
+            candidate_count
+        )
+        SELECT
+            e.election_type,
+            e.round,
+            EXTRACT(YEAR FROM e.election_date)::int AS year,
+            er.insee_code,
+            MAX(er.registered) AS registered,
+            MAX(er.votes_cast) AS votes_cast,
+            MAX(er.votes_valid) AS votes_valid,
+            CASE
+                WHEN MAX(er.registered) > 0
+                THEN MAX(er.votes_cast)::numeric / MAX(er.registered)::numeric
+                ELSE NULL
+            END AS turnout_rate,
+            CASE
+                WHEN MAX(er.votes_cast) > 0
+                THEN MAX(er.votes_valid)::numeric / MAX(er.votes_cast)::numeric
+                ELSE NULL
+            END AS valid_ballot_rate,
+            CASE
+                WHEN MAX(er.votes_cast) > 0
+                THEN 1.0 - (MAX(er.votes_valid)::numeric / MAX(er.votes_cast)::numeric)
+                ELSE NULL
+            END AS invalid_ballot_rate,
+            MAX(er.vote_share) AS winner_share,
+            COUNT(DISTINCT er.candidate_id) AS candidate_count
+        FROM election_result er
+        JOIN election e ON e.election_id = er.election_id
+        WHERE e.scope = 'commune'
+        GROUP BY
+            e.election_type,
+            e.round,
+            EXTRACT(YEAR FROM e.election_date)::int,
+            er.insee_code
+        ON CONFLICT (election_type, round, year, insee_code) DO UPDATE
+        SET
+            registered = EXCLUDED.registered,
+            votes_cast = EXCLUDED.votes_cast,
+            votes_valid = EXCLUDED.votes_valid,
+            turnout_rate = EXCLUDED.turnout_rate,
+            valid_ballot_rate = EXCLUDED.valid_ballot_rate,
+            invalid_ballot_rate = EXCLUDED.invalid_ballot_rate,
+            winner_share = EXCLUDED.winner_share,
+            candidate_count = EXCLUDED.candidate_count
+        """
+    )
+
+
 def _load_turnout_indicator_values(cur, results_df):
     cur.execute("SELECT indicator_id FROM indicator WHERE indicator_code = %s", ("turnout_rate",))
     row = cur.fetchone()
@@ -2519,6 +2827,7 @@ def _load_election_results(
                 _ensure_votes_nullable(cur)
                 _ensure_idf_geo(cur)
                 _ensure_indicator_catalog(cur)
+                _ensure_feature_tables(cur)
                 _backfill_candidate_party_fields(cur)
 
                 target_insee_codes_for_geo = None
@@ -2610,6 +2919,8 @@ def _load_election_results(
 
                 if scope == "departement" and election_type == "presidentielle":
                     _load_turnout_indicator_values(cur, results_df)
+                if scope == "commune":
+                    _refresh_commune_election_context_table(cur)
     finally:
         conn.close()
 
@@ -2705,7 +3016,10 @@ def run_socio_economic_pipeline():
                 _ensure_idf_geo(cur)
                 _load_geo_enrichment(cur)
                 _ensure_indicator_catalog(cur)
+                _ensure_feature_tables(cur)
                 _load_socio_indicator_values(cur, values_df)
+                _refresh_commune_feature_tables_from_indicators(cur)
+                _refresh_commune_election_context_table(cur)
     finally:
         conn.close()
 

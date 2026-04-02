@@ -27,6 +27,8 @@ DEFAULT_TARGETS = [
     "extreme_droite",
 ]
 
+THEMATIC_FEATURE_PREFIXES = ("eco_", "edu_", "demo_", "env_")
+
 TUNED_FEATURES_BY_TARGET = {
     "gauche": [
         "gauche_prev",
@@ -144,6 +146,15 @@ def _make_model(model_name: str) -> Pipeline:
     raise ValueError(f"Unsupported model_name: {model_name}")
 
 
+def _make_residual_model() -> Pipeline:
+    # Conservative regularization to keep residual correction stable.
+    return Pipeline([("scaler", StandardScaler()), ("regressor", Ridge(alpha=40.0, random_state=42))])
+
+
+def _has_thematic_features(feature_list: list[str]) -> bool:
+    return any(str(col).startswith(THEMATIC_FEATURE_PREFIXES) for col in feature_list)
+
+
 def _default_features(df: pd.DataFrame, target: str) -> list[str]:
     pool = [
         "election_number",
@@ -166,6 +177,27 @@ def _default_features(df: pd.DataFrame, target: str) -> list[str]:
         "municipal_num_candidates_latest",
         "municipal_hhi_latest",
         "municipal_year_lag",
+        "eco_median_standard_of_living",
+        "eco_declared_income_median",
+        "eco_taxable_households_share",
+        "eco_social_benefits_income_share",
+        "eco_establishments_count",
+        "eco_business_creations_count",
+        "eco_business_creation_rate",
+        "eco_unemployment_rate",
+        "eco_poverty_rate",
+        "edu_no_diploma_rate_20_24",
+        "edu_school_leavers_20_24_count",
+        "edu_school_leavers_20_24_no_diploma_count",
+        "demo_population_total",
+        "demo_population_age_75_plus_count",
+        "demo_population_age_75_plus_share",
+        "demo_life_expectancy_women",
+        "demo_life_expectancy_men",
+        "env_social_housing_share",
+        "env_catnat_communes_flood_count",
+        "env_catnat_communes_storm_count",
+        "env_catnat_communes_drought_count",
         "share_winner_prev",
         "extreme_gauche_prev",
         "gauche_prev",
@@ -258,14 +290,28 @@ def _candidate_configs_for_target(target: str, scope: str) -> list[dict]:
                 {"model": "dept_nowcast_anchor", "feature_mode": "anchor", "anchor_variant": "mul"},
             ]
         )
+        # Anchor + residual correction model trained on full feature set,
+        # including thematic tables (eco/edu/demo/env).
+        for anchor_variant in ["level", "add", "mul"]:
+            for beta in [0.01, 0.02, 0.05, 0.10]:
+                configs.append(
+                    {
+                        "model": "dept_nowcast_anchor_residual",
+                        "feature_mode": "default",
+                        "anchor_variant": anchor_variant,
+                        "residual_beta": float(beta),
+                    }
+                )
     return configs
 
 
-def _score_key(row: dict) -> tuple[float, float, float]:
+def _score_key(row: dict) -> tuple[float, float, float, float, float]:
     # Prefer configurations with positive worst-fold R2 before maximizing means.
     all_folds_positive = 1.0 if float(row.get("r2_min", -1e9)) > 0 else 0.0
+    uses_new_data = 1.0 if bool(row.get("uses_new_data", False)) else 0.0
     return (
         all_folds_positive,
+        uses_new_data,
         float(row.get("r2_mean", -1e9)),
         float(row.get("r2_min", -1e9)),
         -float(row.get("mae_mean", 1e9)),
@@ -354,6 +400,7 @@ def run_reliable_training(
         best_fold_df = None
         for cfg in _candidate_configs_for_target(target, scope):
             is_anchor = cfg["model"] == "dept_nowcast_anchor"
+            is_anchor_residual = cfg["model"] == "dept_nowcast_anchor_residual"
             if cfg["feature_mode"] == "tuned":
                 feature_list = [c for c in TUNED_FEATURES_BY_TARGET[target] if c in df.columns]
             elif cfg["feature_mode"] == "default":
@@ -362,6 +409,11 @@ def run_reliable_training(
                 feature_list = []
             if not is_anchor and not feature_list:
                 continue
+            uses_new_data_cfg = (
+                is_anchor_residual
+                or _has_thematic_features(feature_list)
+                or bool(cfg.get("feature_mode") == "tuned")
+            )
 
             fold_cache = []
             for year in eval_years:
@@ -391,6 +443,32 @@ def run_reliable_training(
                     )
                     if pred_model.size == 0:
                         continue
+                elif is_anchor_residual:
+                    train_clean = train_df.copy()
+                    train_clean["target"] = pd.to_numeric(train_clean.get("target"), errors="coerce")
+                    train_clean = train_clean.dropna(subset=["target"]).copy()
+                    test_clean = test_df.copy()
+                    test_clean["target"] = pd.to_numeric(test_clean.get("target"), errors="coerce")
+                    test_clean = test_clean.dropna(subset=["target"]).copy()
+                    if train_clean.empty or test_clean.empty:
+                        continue
+
+                    x_train, y_train, _ = _prepare_xy(train_clean, target=target, feature_list=feature_list)
+                    x_test, y_test, baseline_test = _prepare_xy(test_clean, target=target, feature_list=feature_list)
+                    if x_train.empty or x_test.empty:
+                        continue
+
+                    anchor_variant = str(cfg.get("anchor_variant", "level"))
+                    anchor_train = _predict_from_dept_anchor(train_clean, target=target, variant=anchor_variant)
+                    anchor_test = _predict_from_dept_anchor(test_clean, target=target, variant=anchor_variant)
+                    if anchor_train.size != len(y_train) or anchor_test.size != len(y_test):
+                        continue
+
+                    residual_model = _make_residual_model()
+                    residual_model.fit(x_train, y_train - anchor_train)
+                    residual_pred = residual_model.predict(x_test)
+                    beta = float(cfg.get("residual_beta", 0.05))
+                    pred_model = _clip(anchor_test + beta * residual_pred)
                 else:
                     x_train, y_train, _ = _prepare_xy(train_df, target=target, feature_list=feature_list)
                     x_test, y_test, baseline_test = _prepare_xy(test_df, target=target, feature_list=feature_list)
@@ -413,7 +491,8 @@ def run_reliable_training(
             if not fold_cache:
                 continue
 
-            for alpha in [0.0, 0.25, 0.5, 0.75, 1.0]:
+            alpha_grid = [1.0] if is_anchor_residual else [0.0, 0.25, 0.5, 0.75, 1.0]
+            for alpha in alpha_grid:
                 fold_rows = []
                 for fold in fold_cache:
                     pred_blend = _clip(alpha * fold["pred_model"] + (1.0 - alpha) * fold["pred_baseline"])
@@ -426,6 +505,8 @@ def run_reliable_training(
                             "model": cfg["model"],
                             "feature_mode": cfg["feature_mode"],
                             "anchor_variant": str(cfg.get("anchor_variant", "")),
+                            "residual_beta": float(cfg.get("residual_beta", 0.0)),
+                            "uses_new_data": bool(uses_new_data_cfg),
                             "blend_alpha": float(alpha),
                         }
                     )
@@ -437,6 +518,8 @@ def run_reliable_training(
                     "model": cfg["model"],
                     "feature_mode": cfg["feature_mode"],
                     "anchor_variant": str(cfg.get("anchor_variant", "")),
+                    "residual_beta": float(cfg.get("residual_beta", 0.0)),
+                    "uses_new_data": bool(uses_new_data_cfg),
                     "blend_alpha": float(alpha),
                     "folds": int(len(fold_df)),
                     "r2_mean": float(fold_df["r2"].mean()),
@@ -453,9 +536,15 @@ def run_reliable_training(
             raise RuntimeError(f"No valid configuration found for target={target}")
 
         variant_suffix = f" variant={best['anchor_variant']}" if str(best.get("anchor_variant", "")).strip() else ""
+        beta_suffix = (
+            f" beta={best['residual_beta']:.2f}"
+            if float(best.get("residual_beta", 0.0)) > 0.0
+            else ""
+        )
         print(
             f"  [best] model={best['model']} features={best['feature_mode']} "
-            f"alpha={best['blend_alpha']:.2f}{variant_suffix} "
+            f"alpha={best['blend_alpha']:.2f}{variant_suffix}{beta_suffix} "
+            f"uses_new_data={bool(best.get('uses_new_data', False))} "
             f"r2_mean={best['r2_mean']:.4f} r2_min={best['r2_min']:.4f}"
         )
 
