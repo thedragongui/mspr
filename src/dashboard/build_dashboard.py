@@ -23,8 +23,10 @@ OUTPUT_DIR = Path("data/processed/dashboard")
 OUTPUT_FILE = OUTPUT_DIR / "idf_dashboard_matplotlib.png"
 PREDICTIONS_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_matplotlib.png"
 PREDICTIONS_TUNED_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_commune_tuned_matplotlib.png"
+PREDICTIONS_RELIABLE_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_reliable_all_years_v3_matplotlib.png"
 ML_COMPARE_OUTPUT_DIR = Path("data/processed/ml/comparison")
 ML_TUNED_OUTPUT_DIR = Path("data/processed/ml/commune_tuned_dashboard")
+ML_RELIABLE_OUTPUT_DIR = Path("data/processed/ml/reliable_all_years_commune_all_years_newdata_v3")
 PREDICTION_DASHBOARD_TARGETS = [
     "extreme_gauche",
     "gauche",
@@ -539,6 +541,154 @@ def build_commune_tuned_predictions_dashboard(
     return output_path
 
 
+def build_reliable_all_years_dashboard(
+    output_path: Path = PREDICTIONS_RELIABLE_OUTPUT_FILE,
+    input_dir: Path = ML_RELIABLE_OUTPUT_DIR,
+):
+    summary_path = input_dir / "reliable_summary.csv"
+    folds_path = input_dir / "reliable_folds.csv"
+    if not summary_path.exists() or not folds_path.exists():
+        raise RuntimeError(
+            "Resultats reliable_all_years introuvables. "
+            f"Attendus: {summary_path} et {folds_path}"
+        )
+
+    summary_df = pd.read_csv(summary_path).copy()
+    folds_df = pd.read_csv(folds_path).copy()
+    if summary_df.empty:
+        raise RuntimeError("Le fichier reliable_summary.csv est vide.")
+
+    target_order = [t for t in PREDICTION_DASHBOARD_TARGETS if t in summary_df["target"].astype(str).tolist()]
+    if not target_order:
+        target_order = sorted(summary_df["target"].astype(str).unique().tolist())
+    summary_df["target"] = summary_df["target"].astype(str)
+    summary_df["target_label"] = summary_df["target"].str.replace("_", " ").str.title()
+    summary_df["target_order"] = summary_df["target"].apply(
+        lambda t: target_order.index(t) if t in target_order else 999
+    )
+    summary_df = summary_df.sort_values("target_order").reset_index(drop=True)
+
+    folds_df["target"] = folds_df["target"].astype(str)
+    folds_df["year"] = pd.to_numeric(folds_df["year"], errors="coerce").astype("Int64")
+
+    fig, axes = plt.subplots(2, 2, figsize=(18, 11), constrained_layout=True)
+    fig.patch.set_facecolor(FIG_BG)
+    fig.suptitle(
+        "Fiabilite des predictions (commune, toutes annees, nouvelles donnees v3)",
+        fontsize=16,
+        fontweight="bold",
+    )
+
+    # R2 mean + min by target
+    ax_r2 = axes[0, 0]
+    x = np.arange(len(summary_df))
+    ax_r2.bar(
+        x,
+        summary_df["r2_mean"],
+        color=CORE_COLOR,
+        edgecolor="#16324F",
+        label="R2 moyen",
+    )
+    ax_r2.scatter(
+        x,
+        summary_df["r2_min"],
+        color=FULL_COLOR,
+        edgecolor="#8C4A00",
+        s=80,
+        marker="D",
+        label="R2 minimum",
+    )
+    ax_r2.axhline(0.0, color=DIAGONAL_COLOR, linestyle="--", linewidth=1.2)
+    ax_r2.set_xticks(x)
+    ax_r2.set_xticklabels(summary_df["target_label"], rotation=20)
+    ax_r2.set_xlabel("Parti")
+    ax_r2.set_ylabel("R2")
+    ax_r2.set_title("R2 moyen et minimum par parti", fontweight="bold")
+    _style_axis(ax_r2)
+    ax_r2.legend(frameon=False)
+
+    # R2 trend by year for each target
+    ax_trend = axes[0, 1]
+    for target in target_order:
+        chunk = folds_df[folds_df["target"] == target].copy()
+        if chunk.empty:
+            continue
+        chunk = chunk.sort_values("year")
+        ax_trend.plot(
+            chunk["year"].astype(int),
+            chunk["r2"],
+            marker="o",
+            linewidth=2.0,
+            label=target.replace("_", " ").title(),
+        )
+    ax_trend.axhline(0.0, color=DIAGONAL_COLOR, linestyle="--", linewidth=1.2)
+    ax_trend.set_title("R2 par annee et par parti", fontweight="bold")
+    ax_trend.set_xlabel("Annee de test")
+    ax_trend.set_ylabel("R2")
+    _style_axis(ax_trend)
+    ax_trend.legend(frameon=False, fontsize=9)
+
+    # Error metrics by target
+    ax_err = axes[1, 0]
+    width = 0.38
+    ax_err.bar(
+        x - width / 2,
+        summary_df["mae_mean"] * 100.0,
+        width=width,
+        color=FULL_COLOR,
+        edgecolor="#8C4A00",
+        label="MAE moyenne",
+    )
+    ax_err.bar(
+        x + width / 2,
+        summary_df["rmse_mean"] * 100.0,
+        width=width,
+        color=BAR_BG_COLOR,
+        edgecolor="#7A8799",
+        label="RMSE moyenne",
+    )
+    ax_err.set_xticks(x)
+    ax_err.set_xticklabels(summary_df["target_label"], rotation=20)
+    ax_err.set_xlabel("Parti")
+    ax_err.set_ylabel("Erreur (points de vote)")
+    ax_err.set_title("Erreurs moyennes par parti", fontweight="bold")
+    _style_axis(ax_err)
+    ax_err.legend(frameon=False)
+
+    # Text summary
+    ax_txt = axes[1, 1]
+    ax_txt.axis("off")
+    ax_txt.set_facecolor(PANEL_BG)
+    lines = [
+        "Source: reliable_all_years_commune_all_years_newdata_v3",
+        f"Cibles: {len(summary_df)}",
+        f"Tous les R2 moyens > 0: {bool((summary_df['r2_mean'] > 0).all())}",
+        f"Tous les R2 minimum > 0: {bool((summary_df['r2_min'] > 0).all())}",
+        "",
+    ]
+    for row in summary_df.itertuples(index=False):
+        lines.append(
+            f"{row.target.upper():<15} R2_mean={float(row.r2_mean):.3f} "
+            f"R2_min={float(row.r2_min):.3f} "
+            f"MAE={float(row.mae_mean):.3f} "
+            f"model={row.model}"
+        )
+    ax_txt.text(
+        0.01,
+        0.99,
+        "\n".join(lines),
+        va="top",
+        ha="left",
+        fontsize=10.0,
+        family="monospace",
+    )
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=170)
+    plt.close(fig)
+    return output_path
+
+
 def build_dashboard(output_path: Path = OUTPUT_FILE):
     turnout_df, winner_df = _prepare_election_data()
     socio_df = _prepare_socio_data()
@@ -574,14 +724,17 @@ def run_dashboard_pipeline():
     output_path = build_dashboard()
     predictions_outputs = build_predictions_dashboards_for_targets()
     tuned_output = build_commune_tuned_predictions_dashboard()
+    reliable_output = build_reliable_all_years_dashboard()
     print(f"[done] dashboard matplotlib donnees genere: {output_path}")
     for target, path in predictions_outputs.items():
         print(f"[done] dashboard matplotlib predictions genere ({target}): {path}")
     print(f"[done] dashboard matplotlib predictions tuned commune genere: {tuned_output}")
+    print(f"[done] dashboard matplotlib predictions reliable all-years genere: {reliable_output}")
     return {
         "data_dashboard": str(output_path),
         "predictions_dashboards": predictions_outputs,
         "commune_tuned_dashboard": str(tuned_output),
+        "reliable_all_years_dashboard": str(reliable_output),
     }
 
 

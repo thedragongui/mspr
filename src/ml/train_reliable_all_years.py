@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import warnings
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.ensemble import (
     ExtraTreesRegressor,
     GradientBoostingRegressor,
@@ -146,9 +148,58 @@ def _make_model(model_name: str) -> Pipeline:
     raise ValueError(f"Unsupported model_name: {model_name}")
 
 
-def _make_residual_model() -> Pipeline:
+def _make_residual_model(
+    model_name: str = "ridge",
+    alpha: float = 40.0,
+    l1_ratio: float = 0.5,
+    max_iter: int = 300,
+    learning_rate: float = 0.03,
+    max_depth: int = 4,
+):
     # Conservative regularization to keep residual correction stable.
-    return Pipeline([("scaler", StandardScaler()), ("regressor", Ridge(alpha=40.0, random_state=42))])
+    if model_name == "ridge":
+        return Pipeline([("scaler", StandardScaler()), ("regressor", Ridge(alpha=float(alpha), random_state=42))])
+    if model_name == "enet":
+        return Pipeline(
+            [
+                ("scaler", StandardScaler()),
+                (
+                    "regressor",
+                    ElasticNet(
+                        alpha=float(alpha),
+                        l1_ratio=float(l1_ratio),
+                        random_state=42,
+                        max_iter=30000,
+                    ),
+                ),
+            ]
+        )
+    if model_name == "hgb":
+        return HistGradientBoostingRegressor(
+            max_iter=int(max_iter),
+            learning_rate=float(learning_rate),
+            max_depth=int(max_depth),
+            random_state=42,
+        )
+    raise ValueError(f"Unsupported residual model: {model_name}")
+
+
+def _residual_candidate_configs() -> list[dict]:
+    # Keep the grid compact to avoid very long runtimes while still exploring
+    # linear and non-linear residual corrections.
+    return [
+        {"residual_model": "ridge", "residual_alpha": 12.0},
+        {"residual_model": "ridge", "residual_alpha": 40.0},
+        {"residual_model": "ridge", "residual_alpha": 120.0},
+        {"residual_model": "enet", "residual_alpha": 0.005, "residual_l1_ratio": 0.3},
+        {"residual_model": "enet", "residual_alpha": 0.02, "residual_l1_ratio": 0.6},
+        {
+            "residual_model": "hgb",
+            "residual_max_iter": 250,
+            "residual_learning_rate": 0.03,
+            "residual_max_depth": 3,
+        },
+    ]
 
 
 def _has_thematic_features(feature_list: list[str]) -> bool:
@@ -294,14 +345,16 @@ def _candidate_configs_for_target(target: str, scope: str) -> list[dict]:
         # including thematic tables (eco/edu/demo/env).
         for anchor_variant in ["level", "add", "mul"]:
             for beta in [0.01, 0.02, 0.05, 0.10]:
-                configs.append(
-                    {
-                        "model": "dept_nowcast_anchor_residual",
-                        "feature_mode": "default",
-                        "anchor_variant": anchor_variant,
-                        "residual_beta": float(beta),
-                    }
-                )
+                for residual_cfg in _residual_candidate_configs():
+                    configs.append(
+                        {
+                            "model": "dept_nowcast_anchor_residual",
+                            "feature_mode": "default",
+                            "anchor_variant": anchor_variant,
+                            "residual_beta": float(beta),
+                            **residual_cfg,
+                        }
+                    )
     return configs
 
 
@@ -309,11 +362,14 @@ def _score_key(row: dict) -> tuple[float, float, float, float, float]:
     # Prefer configurations with positive worst-fold R2 before maximizing means.
     all_folds_positive = 1.0 if float(row.get("r2_min", -1e9)) > 0 else 0.0
     uses_new_data = 1.0 if bool(row.get("uses_new_data", False)) else 0.0
+    r2_min = float(row.get("r2_min", -1e9))
+    r2_mean = float(row.get("r2_mean", -1e9))
+    # Reliability first: prioritize worst-fold R2, then average R2.
     return (
         all_folds_positive,
         uses_new_data,
-        float(row.get("r2_mean", -1e9)),
-        float(row.get("r2_min", -1e9)),
+        r2_min,
+        r2_mean,
         -float(row.get("mae_mean", 1e9)),
     )
 
@@ -374,6 +430,7 @@ def run_reliable_training(
     test_years: list[int] | None = None,
     min_history_years: int = 2,
 ) -> dict:
+    warnings.filterwarnings("ignore", category=ConvergenceWarning)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     summary_rows: list[dict] = []
@@ -464,7 +521,14 @@ def run_reliable_training(
                     if anchor_train.size != len(y_train) or anchor_test.size != len(y_test):
                         continue
 
-                    residual_model = _make_residual_model()
+                    residual_model = _make_residual_model(
+                        model_name=str(cfg.get("residual_model", "ridge")),
+                        alpha=float(cfg.get("residual_alpha", 40.0)),
+                        l1_ratio=float(cfg.get("residual_l1_ratio", 0.5)),
+                        max_iter=int(cfg.get("residual_max_iter", 300)),
+                        learning_rate=float(cfg.get("residual_learning_rate", 0.03)),
+                        max_depth=int(cfg.get("residual_max_depth", 4)),
+                    )
                     residual_model.fit(x_train, y_train - anchor_train)
                     residual_pred = residual_model.predict(x_test)
                     beta = float(cfg.get("residual_beta", 0.05))
@@ -491,7 +555,7 @@ def run_reliable_training(
             if not fold_cache:
                 continue
 
-            alpha_grid = [1.0] if is_anchor_residual else [0.0, 0.25, 0.5, 0.75, 1.0]
+            alpha_grid = [0.75, 0.9, 1.0] if is_anchor_residual else [0.0, 0.25, 0.5, 0.75, 1.0]
             for alpha in alpha_grid:
                 fold_rows = []
                 for fold in fold_cache:
@@ -506,6 +570,12 @@ def run_reliable_training(
                             "feature_mode": cfg["feature_mode"],
                             "anchor_variant": str(cfg.get("anchor_variant", "")),
                             "residual_beta": float(cfg.get("residual_beta", 0.0)),
+                            "residual_model": str(cfg.get("residual_model", "")),
+                            "residual_alpha": float(cfg.get("residual_alpha", 0.0)),
+                            "residual_l1_ratio": float(cfg.get("residual_l1_ratio", 0.0)),
+                            "residual_max_iter": int(cfg.get("residual_max_iter", 0)),
+                            "residual_learning_rate": float(cfg.get("residual_learning_rate", 0.0)),
+                            "residual_max_depth": int(cfg.get("residual_max_depth", 0)),
                             "uses_new_data": bool(uses_new_data_cfg),
                             "blend_alpha": float(alpha),
                         }
@@ -519,6 +589,12 @@ def run_reliable_training(
                     "feature_mode": cfg["feature_mode"],
                     "anchor_variant": str(cfg.get("anchor_variant", "")),
                     "residual_beta": float(cfg.get("residual_beta", 0.0)),
+                    "residual_model": str(cfg.get("residual_model", "")),
+                    "residual_alpha": float(cfg.get("residual_alpha", 0.0)),
+                    "residual_l1_ratio": float(cfg.get("residual_l1_ratio", 0.0)),
+                    "residual_max_iter": int(cfg.get("residual_max_iter", 0)),
+                    "residual_learning_rate": float(cfg.get("residual_learning_rate", 0.0)),
+                    "residual_max_depth": int(cfg.get("residual_max_depth", 0)),
                     "uses_new_data": bool(uses_new_data_cfg),
                     "blend_alpha": float(alpha),
                     "folds": int(len(fold_df)),
@@ -541,9 +617,19 @@ def run_reliable_training(
             if float(best.get("residual_beta", 0.0)) > 0.0
             else ""
         )
+        residual_suffix = ""
+        if str(best.get("residual_model", "")).strip():
+            residual_suffix = (
+                f" residual={best['residual_model']}"
+                f" alpha={best.get('residual_alpha', 0.0):.4f}"
+            )
+            if float(best.get("residual_l1_ratio", 0.0)) > 0.0:
+                residual_suffix += f" l1={best['residual_l1_ratio']:.2f}"
+            if int(best.get("residual_max_depth", 0)) > 0:
+                residual_suffix += f" depth={int(best['residual_max_depth'])}"
         print(
             f"  [best] model={best['model']} features={best['feature_mode']} "
-            f"alpha={best['blend_alpha']:.2f}{variant_suffix}{beta_suffix} "
+            f"alpha={best['blend_alpha']:.2f}{variant_suffix}{beta_suffix}{residual_suffix} "
             f"uses_new_data={bool(best.get('uses_new_data', False))} "
             f"r2_mean={best['r2_mean']:.4f} r2_min={best['r2_min']:.4f}"
         )
