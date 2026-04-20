@@ -81,6 +81,8 @@ ELECTION_CONTEXT_FEATURES = [
     "invalid_ballot_rate",
 ]
 
+PRESIDENTIAL_LAG_SOURCE_COLUMNS = ["share_winner"] + FAMILIES + ELECTION_CONTEXT_FEATURES
+
 COMMUNE_GEO_FEATURES = [
     "population",
     "area_km2",
@@ -811,12 +813,16 @@ def add_lagged_columns(
     columns_to_lag: list[str],
     fill_value: float = 0.0,
     group_key: str = "geo_code",
+    lag_steps: int = 1,
 ) -> pd.DataFrame:
     """
     Add previous-election lag columns for selected features.
     """
+    if lag_steps < 1:
+        raise ValueError("lag_steps must be >= 1")
+
     years_sorted = sorted(df["year"].unique())
-    if len(years_sorted) < 2:
+    if len(years_sorted) <= lag_steps:
         return df
 
     lag_cols = [col for col in columns_to_lag if col in df.columns]
@@ -828,21 +834,27 @@ def add_lagged_columns(
         else:
             raise ValueError("Cannot add lagged columns: no group key available.")
 
-    year_to_prev = {year: years_sorted[idx - 1] for idx, year in enumerate(years_sorted) if idx > 0}
+    lag_suffix = "prev" if lag_steps == 1 else f"prev{lag_steps}"
+    lag_year_col = f"_{lag_suffix}_year"
+    year_to_prev = {
+        year: years_sorted[idx - lag_steps]
+        for idx, year in enumerate(years_sorted)
+        if idx >= lag_steps
+    }
     out = df.copy()
-    out["_prev_year"] = out["year"].map(year_to_prev)
+    out[lag_year_col] = out["year"].map(year_to_prev)
 
     prev_df = out[["year", group_key] + lag_cols].copy()
-    rename_map = {"year": "_prev_year"}
-    rename_map.update({col: f"{col}_prev" for col in lag_cols})
+    rename_map = {"year": lag_year_col}
+    rename_map.update({col: f"{col}_{lag_suffix}" for col in lag_cols})
     prev_df = prev_df.rename(columns=rename_map)
 
-    out = out.merge(prev_df, on=["_prev_year", group_key], how="left", suffixes=("", "_dup"))
-    out = out.drop(columns=["_prev_year"], errors="ignore")
+    out = out.merge(prev_df, on=[lag_year_col, group_key], how="left", suffixes=("", "_dup"))
+    out = out.drop(columns=[lag_year_col], errors="ignore")
     out = out.loc[:, ~out.columns.duplicated()]
 
     for col in lag_cols:
-        prev_col = f"{col}_prev"
+        prev_col = f"{col}_{lag_suffix}"
         if prev_col in out.columns:
             out[prev_col] = out[prev_col].fillna(fill_value)
 
@@ -873,6 +885,75 @@ def add_commune_transfer_features(df: pd.DataFrame) -> pd.DataFrame:
     out["left_pressure"] = out["extreme_gauche_prev"] + out["centre_prev"]
     out["droite_gap_vs_extreme"] = out["droite_prev"] - out["extreme_droite_prev"]
     out["gauche_gap_vs_extreme"] = out["gauche_prev"] - out["extreme_gauche_prev"]
+    return out
+
+
+def add_presidential_temporal_features(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Build additional temporal features from first and second lags
+    (presidential history only).
+    """
+    out = df.copy()
+
+    # Generic momentum for shares and election context: prev - prev2
+    for col in PRESIDENTIAL_LAG_SOURCE_COLUMNS:
+        prev_col = f"{col}_prev"
+        prev2_col = f"{col}_prev2"
+        if prev_col in out.columns and prev2_col in out.columns:
+            out[f"{col}_momentum"] = (
+                pd.to_numeric(out[prev_col], errors="coerce").fillna(0.0)
+                - pd.to_numeric(out[prev2_col], errors="coerce").fillna(0.0)
+            )
+
+    # Commune transfer features at lag-2 + momentum variants
+    transfer_pairs = [
+        ("left_bloc_strength", ("extreme_gauche", "gauche")),
+        ("right_bloc_strength", ("droite", "extreme_droite", "droite_nat")),
+        ("right_pressure", ("extreme_droite", "centre")),
+        ("left_pressure", ("extreme_gauche", "centre")),
+    ]
+    for feat_name, members in transfer_pairs:
+        prev_members = [f"{m}_prev" for m in members]
+        prev2_members = [f"{m}_prev2" for m in members]
+        if all(col in out.columns for col in prev_members):
+            out[feat_name] = sum(
+                pd.to_numeric(out[col], errors="coerce").fillna(0.0) for col in prev_members
+            )
+        if all(col in out.columns for col in prev2_members):
+            out[f"{feat_name}_prev2"] = sum(
+                pd.to_numeric(out[col], errors="coerce").fillna(0.0) for col in prev2_members
+            )
+            if feat_name in out.columns:
+                out[f"{feat_name}_momentum"] = out[feat_name] - out[f"{feat_name}_prev2"]
+
+    if "centre_prev2" in out.columns:
+        out["center_competition_prev2"] = pd.to_numeric(out["centre_prev2"], errors="coerce").fillna(0.0)
+        if "center_competition" in out.columns:
+            out["center_momentum"] = (
+                pd.to_numeric(out["center_competition"], errors="coerce").fillna(0.0)
+                - out["center_competition_prev2"]
+            )
+
+    # Relative balances within left/right spaces.
+    if {"droite_prev", "extreme_droite_prev", "droite_prev2", "extreme_droite_prev2"}.issubset(out.columns):
+        out["droite_gap_vs_extreme_prev2"] = (
+            pd.to_numeric(out["droite_prev2"], errors="coerce").fillna(0.0)
+            - pd.to_numeric(out["extreme_droite_prev2"], errors="coerce").fillna(0.0)
+        )
+        out["droite_gap_vs_extreme_momentum"] = (
+            pd.to_numeric(out["droite_gap_vs_extreme"], errors="coerce").fillna(0.0)
+            - out["droite_gap_vs_extreme_prev2"]
+        )
+    if {"gauche_prev", "extreme_gauche_prev", "gauche_prev2", "extreme_gauche_prev2"}.issubset(out.columns):
+        out["gauche_gap_vs_extreme_prev2"] = (
+            pd.to_numeric(out["gauche_prev2"], errors="coerce").fillna(0.0)
+            - pd.to_numeric(out["extreme_gauche_prev2"], errors="coerce").fillna(0.0)
+        )
+        out["gauche_gap_vs_extreme_momentum"] = (
+            pd.to_numeric(out["gauche_gap_vs_extreme"], errors="coerce").fillna(0.0)
+            - out["gauche_gap_vs_extreme_prev2"]
+        )
+
     return out
 
 
@@ -910,8 +991,10 @@ def build_ml_dataset(
     if include_lags:
         lag_cols = ["share_winner"] + family_cols + lag_context_cols
         df = add_lagged_columns(df, lag_cols, fill_value=0.0, group_key="geo_code")
+        df = add_lagged_columns(df, lag_cols, fill_value=0.0, group_key="geo_code", lag_steps=2)
         if scope == "commune":
             df = add_commune_transfer_features(df)
+        df = add_presidential_temporal_features(df)
 
     # Election index (1..N) to capture global temporal trend
     years_ordered = sorted(df["year"].unique())

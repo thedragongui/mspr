@@ -131,6 +131,11 @@ FIRST_ROUND_2017_BUREAU_TXT_URL = (
     "2017-resultats-definitifs-du-1er-tour-par-bureaux-de-vote/20170427-100955/PR17_BVot_T1_FE.txt"
 )
 
+FIRST_ROUND_2007_BUREAU_T1T2_TXT_URL = (
+    "https://static.data.gouv.fr/resources/election-presidentielle-2007-resultats-par-bureaux-de-vote/"
+    "20151001-154056/PR07_Bvot_T1T2.txt"
+)
+
 FIRST_ROUND_2012_BUREAU_T1T2_TXT_URL = (
     "https://static.data.gouv.fr/resources/election-presidentielle-2012-resultats-par-bureaux-de-vote-1/"
     "20150925-102751/PR12_Bvot_T1T2.txt"
@@ -142,6 +147,7 @@ FIRST_ROUND_2022_BUREAU_TXT_URL = (
 )
 
 COMMUNE_BUREAU_SOURCE_URL_BY_YEAR = {
+    2007: FIRST_ROUND_2007_BUREAU_T1T2_TXT_URL,
     2012: FIRST_ROUND_2012_BUREAU_T1T2_TXT_URL,
     2017: FIRST_ROUND_2017_BUREAU_TXT_URL,
     2022: FIRST_ROUND_2022_BUREAU_TXT_URL,
@@ -1287,6 +1293,104 @@ def _read_2012_first_round_from_bureau_txt_to_commune(url):
     return result[_commune_result_columns()]
 
 
+def _read_2007_first_round_from_bureau_txt_to_commune(url):
+    print("[extract] year=2007 source=txt_bureaux")
+    local_path = _cached_download(url)
+    content = local_path.read_text(encoding="latin-1", errors="replace")
+    reader = csv.reader(io.StringIO(content), delimiter=";")
+
+    seen_bureaus = set()
+    totals_by_commune = {}
+    candidate_votes = {}
+
+    for row in reader:
+        if not row:
+            continue
+        first_cell = str(row[0]).strip()
+        if not first_cell or first_cell.startswith("--"):
+            continue
+        if len(row) < 13:
+            continue
+
+        round_no = first_cell
+        if round_no != "1":
+            continue
+
+        dept_code = _normalize_dept_code(row[1])
+        if dept_code not in TARGET_DEPT_CODES:
+            continue
+
+        commune_code = _normalize_commune_code(row[2])
+        if not commune_code:
+            continue
+        insee_code = f"{dept_code}{commune_code}"
+        commune_name = str(row[3]).strip() or insee_code
+        bureau_code = str(row[4]).strip() or "0000"
+        bureau_key = (insee_code, bureau_code)
+
+        if bureau_key not in seen_bureaus:
+            seen_bureaus.add(bureau_key)
+            registered = _to_int(row[5]) or 0
+            votes_cast = _to_int(row[6]) or 0
+            votes_valid = _to_int(row[7]) or 0
+            current = totals_by_commune.setdefault(
+                insee_code,
+                {
+                    "commune_name": commune_name,
+                    "dept_code": dept_code,
+                    "registered": 0,
+                    "votes_cast": 0,
+                    "votes_valid": 0,
+                },
+            )
+            current["registered"] += registered
+            current["votes_cast"] += votes_cast
+            current["votes_valid"] += votes_valid
+
+        candidate_last_name = str(row[9]).strip()
+        candidate_first_name = str(row[10]).strip()
+        candidate_raw = f"{candidate_last_name} {candidate_first_name}".strip()
+        candidate_name = _canonical_candidate_name(candidate_raw)
+        votes = _to_int(row[12]) or 0
+        key = (insee_code, candidate_name)
+        candidate_votes[key] = candidate_votes.get(key, 0) + votes
+
+    records = []
+    for (insee_code, candidate_name), votes in candidate_votes.items():
+        totals = totals_by_commune.get(insee_code, {})
+        registered = totals.get("registered")
+        votes_cast = totals.get("votes_cast")
+        votes_valid = totals.get("votes_valid")
+        turnout_rate = None
+        vote_share = None
+
+        if registered:
+            turnout_rate = round(votes_cast / registered, 6) if votes_cast is not None else None
+        if votes_valid:
+            vote_share = round(votes / votes_valid, 6)
+
+        records.append(
+            {
+                "year": 2007,
+                "insee_code": insee_code,
+                "commune_name": totals.get("commune_name", insee_code),
+                "dept_code": totals.get("dept_code"),
+                "candidate_name": candidate_name,
+                "registered": registered,
+                "votes_cast": votes_cast,
+                "votes_valid": votes_valid,
+                "votes": votes,
+                "vote_share": vote_share,
+                "turnout_rate": turnout_rate,
+            }
+        )
+
+    result = pd.DataFrame.from_records(records)
+    if result.empty:
+        return pd.DataFrame(columns=_commune_result_columns())
+    return result[_commune_result_columns()]
+
+
 def _read_first_round_bureau_txt_to_commune(year, url):
     print(f"[extract] year={year} source=txt_bureaux")
     local_path = _cached_download(url)
@@ -1413,7 +1517,9 @@ def _collect_all_commune_results():
             all_records.extend(frame.to_dict(orient="records"))
 
     for year, url in sorted(COMMUNE_BUREAU_SOURCE_URL_BY_YEAR.items()):
-        if int(year) == 2012:
+        if int(year) == 2007:
+            frame = _read_2007_first_round_from_bureau_txt_to_commune(url)
+        elif int(year) == 2012:
             frame = _read_2012_first_round_from_bureau_txt_to_commune(url)
         else:
             frame = _read_first_round_bureau_txt_to_commune(int(year), url)

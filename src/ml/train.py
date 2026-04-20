@@ -31,6 +31,7 @@ from .data import (
     COMMUNE_THEMATIC_DB_FEATURES,
     build_ml_dataset,
 )
+from .data_quality import assess_ml_dataset_quality, resolve_test_years
 
 # RÃƒÂ©pertoire de sortie des artefacts ML
 DEFAULT_OUTPUT_DIR = Path("data/processed/ml")
@@ -411,8 +412,7 @@ def temporal_split(
     Si exclude_first_election_from_train=True, la premiÃƒÂ¨re annÃƒÂ©e (ex. 1969) est exclue du train
     pour que les lags correspondent toujours ÃƒÂ  une vraie ÃƒÂ©lection prÃƒÂ©cÃƒÂ©dente.
     """
-    if test_years is None:
-        test_years = [2017, 2022]
+    test_years = resolve_test_years(df, test_years)
     years = sorted(df["year"].unique())
     base_train_years = [y for y in years if y not in test_years]
     train_years = list(base_train_years)
@@ -560,9 +560,34 @@ def train_and_evaluate(
         exclude_first_election_from_train = scope != "commune"
 
     df = build_ml_dataset(target=target, use_db=use_db, include_lags=True, scope=scope)
+    resolved_test_years = resolve_test_years(df, test_years)
+    quality_feature_cols = get_feature_columns(
+        use_core_only=use_core_only,
+        target=target,
+        minimal_for_stable_r2=stable_r2,
+        df_columns=list(df.columns),
+    )
+    quality_report = assess_ml_dataset_quality(
+        df=df,
+        target=target,
+        scope=scope,
+        feature_columns=quality_feature_cols,
+        test_years=resolved_test_years,
+    )
+    quality_report_path = output_dir / "data_quality_report.json"
+    with open(quality_report_path, "w", encoding="utf-8") as f:
+        json.dump(quality_report, f, indent=2, ensure_ascii=False)
+    if quality_report.get("status") != "pass":
+        issues = quality_report.get("critical_issues", [])
+        raise RuntimeError(
+            "Echec des controles qualite des donnees avant entrainement. "
+            f"Rapport: {quality_report_path}. "
+            f"Issues: {' | '.join(str(x) for x in issues)}"
+        )
+
     train_df, test_df = temporal_split(
         df,
-        test_years=test_years,
+        test_years=resolved_test_years,
         exclude_first_election_from_train=exclude_first_election_from_train,
     )
     if min_train_year is not None:
@@ -667,7 +692,7 @@ def train_and_evaluate(
         "alpha_selected": float(alpha),
         "train_samples": len(X_train),
         "test_samples": len(X_test),
-        "test_years": test_years or [2017, 2022],
+        "test_years": resolved_test_years,
         "min_train_year": min_train_year,
         "features": feature_cols,
         "mae": float(mean_absolute_error(y_test, y_pred)),
@@ -683,6 +708,10 @@ def train_and_evaluate(
         metrics.update(validation_compare)
     if alpha_tuning_info:
         metrics.update(alpha_tuning_info)
+    metrics["data_quality_status"] = quality_report.get("status")
+    metrics["data_quality_critical_count"] = int(len(quality_report.get("critical_issues", [])))
+    metrics["data_quality_warning_count"] = int(len(quality_report.get("warning_issues", [])))
+    metrics["data_quality_report_file"] = str(quality_report_path)
 
     metrics["reliability_level"] = _reliability_label(
         r2=metrics["r2"],
@@ -769,8 +798,8 @@ def main():
     parser.add_argument(
         "--test-years",
         type=str,
-        default="2017,2022",
-        help="Annees de test separees par des virgules (ex: 2017,2022)",
+        default="latest",
+        help="Annees de test separees par des virgules (ex: 2017,2022) ou 'latest' (defaut)",
     )
     parser.add_argument(
         "--min-train-year",
@@ -828,7 +857,11 @@ def main():
     )
     args = parser.parse_args()
 
-    test_years = [int(y.strip()) for y in args.test_years.split(",") if y.strip()]
+    test_years_raw = str(args.test_years).strip().lower()
+    if test_years_raw in {"", "latest"}:
+        test_years = None
+    else:
+        test_years = [int(y.strip()) for y in args.test_years.split(",") if y.strip()]
 
     metrics = train_and_evaluate(
         target=args.target,
@@ -851,6 +884,11 @@ def main():
     print(f"  R2   = {metrics['r2']:.4f}")
     print(f"  Mode selectionne : {metrics.get('selected_prediction_mode')}")
     print(f"  Fiabilite : {metrics.get('reliability_level')}")
+    print(
+        "  Qualite donnees : "
+        + str(metrics.get("data_quality_status"))
+        + f" (warnings={metrics.get('data_quality_warning_count', 0)})"
+    )
     if metrics.get("baseline_r2") is not None:
         print(
             "  Baseline ("

@@ -90,16 +90,18 @@ Objectif: couvrir la region Ile-de-France avec des donnees election + indicateur
   - `commune_year_election_context`
 
 ## Criteres d'analyse des donnees (grille d'evaluation MSPR)
-- [ ] Besoins en donnees des metiers collectes a partir du cahier des charges.
-- [ ] Processus de collecte, structuration, gestion et valorisation des donnees formalise.
-- [ ] Descriptif ecrit du processus fourni avec sources de donnees listees et timing coherent.
-- [ ] Schema de flux du pipeline (BPM/ETL) produit et lisible.
-- [ ] Architecture BI decrite sur 3 couches: collecte, stockage/modelisation, restitution.
-- [ ] Technologies d'ingestion choisies en fonction des types de donnees et justifiees.
-- [ ] Choix de stockage (ELT, entrepot, datalake) argumente selon le besoin.
-- [ ] Traitements de donnees modelises (pipeline, parallelisation/distribution si necessaire).
-- [ ] Referentiel de donnees defini avec criteres de selection et de validation explicites.
-- [ ] Qualite des donnees mesuree (completude, coherence, doublons, tracabilite).
-- [ ] Nettoyage des donnees realise avec un outil/methode identifiee (data cleansing).
-- [ ] Restitution preparee avec visualisations pertinentes et rapports exploitables par les metiers.
-- [ ] Securite et conformite juridique integrees (RGPD, clauses contractuelles, propriete intellectuelle).
+- [x] Besoins en donnees des metiers collectes a partir du cahier des charges.
+- [x] Processus de collecte, structuration, gestion et valorisation des donnees formalise.
+- [x] Descriptif ecrit du processus fourni avec sources de donnees listees et timing coherent.
+- [x] Schema de flux du pipeline (BPM/ETL) produit et lisible.
+- [x] Architecture BI decrite sur 3 couches: collecte, stockage/modelisation, restitution.
+- [x] Technologies d'ingestion choisies en fonction des types de donnees et justifiees.
+- [x] Choix de stockage (ELT, entrepot, datalake) argumente selon le besoin.
+- [x] Traitements de donnees modelises (pipeline, parallelisation/distribution si necessaire).
+- [x] Referentiel de donnees defini avec criteres de selection et de validation explicites.
+- [x] Qualite des donnees mesuree (completude, coherence, doublons, tracabilite).
+- [x] Nettoyage des donnees realise avec un outil/methode identifiee (data cleansing).
+- [x] Restitution preparee avec visualisations pertinentes et rapports exploitables par les metiers.
+- [x] Securite et conformite juridique integrees (RGPD, clauses contractuelles, propriete intellectuelle).
+
+Details de preuve et ecarts restants: `docs/grille_conformite_mspr.md`.

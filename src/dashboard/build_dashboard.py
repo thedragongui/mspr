@@ -23,10 +23,10 @@ OUTPUT_DIR = Path("data/processed/dashboard")
 OUTPUT_FILE = OUTPUT_DIR / "idf_dashboard_matplotlib.png"
 PREDICTIONS_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_matplotlib.png"
 PREDICTIONS_TUNED_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_commune_tuned_matplotlib.png"
-PREDICTIONS_RELIABLE_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_reliable_all_years_v3_matplotlib.png"
+PREDICTIONS_RELIABLE_OUTPUT_FILE = OUTPUT_DIR / "idf_predictions_reliable_all_years_all_eval_v1_matplotlib.png"
 ML_COMPARE_OUTPUT_DIR = Path("data/processed/ml/comparison")
 ML_TUNED_OUTPUT_DIR = Path("data/processed/ml/commune_tuned_dashboard")
-ML_RELIABLE_OUTPUT_DIR = Path("data/processed/ml/reliable_all_years_commune_all_years_newdata_v3")
+ML_RELIABLE_OUTPUT_DIR = Path("data/processed/ml/reliable_all_years_all_eval_v1")
 PREDICTION_DASHBOARD_TARGETS = [
     "extreme_gauche",
     "gauche",
@@ -421,13 +421,13 @@ def build_predictions_dashboards_for_targets(
 def build_commune_tuned_predictions_dashboard(
     output_path: Path = PREDICTIONS_TUNED_OUTPUT_FILE,
     targets: list[str] | None = None,
-    test_years: tuple[int, ...] = (2022,),
-    min_train_year: int = 2012,
+    test_years: tuple[int, ...] | None = None,
+    min_train_year: int | None = None,
 ):
     targets = targets or PREDICTION_DASHBOARD_TARGETS
     run_result = ml_train_tuned.run_tuned_commune_training(
         targets=targets,
-        test_years=list(test_years),
+        test_years=list(test_years) if test_years else None,
         min_train_year=min_train_year,
         output_dir=ML_TUNED_OUTPUT_DIR,
     )
@@ -452,8 +452,12 @@ def build_commune_tuned_predictions_dashboard(
 
     fig, axes = plt.subplots(2, 2, figsize=(18, 11), constrained_layout=True)
     fig.patch.set_facecolor(FIG_BG)
+    if test_years:
+        test_label = f"test {list(test_years)}"
+    else:
+        test_label = "test derniere annee disponible"
     fig.suptitle(
-        "Predictions communales tunees (partis principaux, test 2022)",
+        f"Predictions communales tunees (partis principaux, {test_label})",
         fontsize=16,
         fontweight="bold",
     )
@@ -503,7 +507,7 @@ def build_commune_tuned_predictions_dashboard(
         ax_mean.set_xticks(x)
         ax_mean.set_xticklabels(means_df["target_label"], rotation=25)
         ax_mean.legend(frameon=False)
-    ax_mean.set_title("Reel vs prediction moyenne (test 2022)", fontweight="bold")
+    ax_mean.set_title(f"Reel vs prediction moyenne ({test_label})", fontweight="bold")
     ax_mean.set_xlabel("Parti")
     ax_mean.set_ylabel("Part de vote (%)")
     _style_axis(ax_mean, y_is_percent=True)
@@ -514,8 +518,12 @@ def build_commune_tuned_predictions_dashboard(
     ax_txt.set_facecolor(PANEL_BG)
     lines = [
         "Mode commune tuned",
-        f"Annees test: {list(test_years)}",
-        f"Train >= {min_train_year}",
+        f"Annees test: {list(test_years) if test_years else 'latest'}",
+        (
+            "Train: toutes annees disponibles"
+            if min_train_year is None
+            else f"Train >= {int(min_train_year)}"
+        ),
         "",
     ]
     for row in summary_df.itertuples(index=False):
@@ -573,11 +581,7 @@ def build_reliable_all_years_dashboard(
 
     fig, axes = plt.subplots(2, 2, figsize=(18, 11), constrained_layout=True)
     fig.patch.set_facecolor(FIG_BG)
-    fig.suptitle(
-        "Fiabilite des predictions (commune, toutes annees, nouvelles donnees v3)",
-        fontsize=16,
-        fontweight="bold",
-    )
+    fig.suptitle("Fiabilite des predictions (commune, toutes annees)", fontsize=16, fontweight="bold")
 
     # R2 mean + min by target
     ax_r2 = axes[0, 0]
@@ -660,7 +664,7 @@ def build_reliable_all_years_dashboard(
     ax_txt.axis("off")
     ax_txt.set_facecolor(PANEL_BG)
     lines = [
-        "Source: reliable_all_years_commune_all_years_newdata_v3",
+        f"Source: {input_dir.name}",
         f"Cibles: {len(summary_df)}",
         f"Tous les R2 moyens > 0: {bool((summary_df['r2_mean'] > 0).all())}",
         f"Tous les R2 minimum > 0: {bool((summary_df['r2_min'] > 0).all())}",

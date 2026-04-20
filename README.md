@@ -50,6 +50,9 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
    - Desactivation via `ENRICH_GEO_FROM_ODD=false` et/ou `ENRICH_GEO_COORDS_FROM_GEO_API=false`.
    - Les indicateurs actuellement charges: `unemployment_rate`, `unemployment_rate_youth_15_24`, `unemployment_rate_women`, `unemployment_rate_men`, `poverty_rate`, `median_standard_of_living`, `no_diploma_rate_20_24`, `social_housing_share`, `life_expectancy_women`, `life_expectancy_men`, `long_term_jobseekers_share`, `jobseekers_de_count`, `jobseekers_abc_count`, `overindebtedness_cases_count`, `turnout_rate`, `population_total`, `establishments_count`, `business_creations_count`, `business_creation_rate`, `declared_income_median`, `taxable_households_share`, `social_benefits_income_share`, `school_leavers_20_24_count`, `school_leavers_20_24_no_diploma_count`, `population_age_75_plus_count`, `population_age_75_plus_share`, `catnat_communes_flood_count`, `catnat_communes_storm_count`, `catnat_communes_drought_count`.
    - Datamarts thematiques auto-crees/remplis en base: `commune_year_economy`, `commune_year_education`, `commune_year_demography`, `commune_year_environment`, `commune_year_election_context`.
+   - Datamart BI multidimensionnel (etoile/flocon):
+     - `docker exec -i mspr_pg psql -U ${POSTGRES_USER:-mspr} -d ${POSTGRES_DB:-mspr_electio} < sql/bi_datamart.sql`
+     - objets crees dans le schema `bi` (`dim_*`, `fact_election_result`, `vw_fact_presidentielle_t1`)
 6) Generer le dashboard Matplotlib:
    - `python src/dashboard/build_dashboard.py`
    - `python -m src.dashboard.build_dashboard` (depuis la racine du projet)
@@ -58,11 +61,14 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
      - `data/processed/dashboard/idf_predictions_matplotlib.png` (predictions ML vs reel, comparaison core/full, cible `extreme_droite`)
      - `data/processed/dashboard/idf_predictions_<target>_matplotlib.png` (autres cibles: `gauche`, `droite`, `centre`, `extreme_gauche`, etc.)
      - `data/processed/dashboard/idf_predictions_commune_tuned_matplotlib.png` (mode commune optimise par parti, avec resume R2/MAE)
+   - Dashboard HTML interactif:
+     - `python -m src.dashboard.build_dashboard_interactive`
+     - sortie: `data/processed/dashboard/idf_dashboard_interactive.html`
 7) Ouvrir les notebooks si besoin.
 8) **Machine Learning** (modele predictif supervise) :
    - Depuis la racine du projet : `python -m src.ml.train --target extreme_droite --model ridge` (cible part extreme droite, RÃ‚Â² stabilise)
    - Option de granularite geo : `--scope departement` (defaut) ou `--scope commune` (2012/2017/2022).
-   - Options : `--no-db` (chargement ETL sans base), `--model ridge|enet|rf|et|gbr|hgb`, `--test-years 2017,2022`, `--no-stable-r2`, `--no-core-only` (active toutes les features, y compris colonnes election agregees + indicateurs supplementaires disponibles en base), `--no-safe-predictions` (desactive le fallback securise vers le baseline lag)
+   - Options : `--no-db` (chargement ETL sans base), `--model ridge|enet|rf|et|gbr|hgb`, `--test-years latest` (defaut: derniere annee disponible), `--no-stable-r2`, `--no-core-only` (active toutes les features, y compris colonnes election agregees + indicateurs supplementaires disponibles en base), `--no-safe-predictions` (desactive le fallback securise vers le baseline lag)
    - Benchmark rapide commune (evite les runs qui stagnent): `python -m src.ml.benchmark_commune --test-years 2022 --max-seconds-per-target 150`
    - Variables d'env ML: `ML_USE_ALL_DB_INDICATORS=true|false` (defaut `true`) et `ML_EXTRA_SOCIO_INDICATORS=code1,code2`
    - Quand des municipales `commune` sont chargees, le dataset ML ajoute automatiquement:
@@ -71,10 +77,23 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
      `municipal_hhi_latest`, `municipal_year_lag`.
    - Sorties : `data/processed/ml/model.joblib`, `data/processed/ml/metrics.json`, `data/processed/ml/predictions.csv`
    - Entrainement `commune` optimise par parti (objectif: R2 > 0 sur toutes les cibles du bloc principal):
-     - `python -m src.ml.train_commune_tuned --test-years 2022 --min-train-year 2012`
+     - `python -m src.ml.train_commune_tuned --test-years latest`
      - sorties dans `data/processed/ml/commune_tuned/` (metrics + predictions par parti + resume global)
+   - Entrainement par **entite** (candidat ou parti-lineage), avec normalisation des alias/noms historiques:
+     - Lister les candidats: `python -m src.ml.train_entity --entity-mode candidate --scope commune --list-entities`
+     - Lister les partis-lineages: `python -m src.ml.train_entity --entity-mode party --scope commune --list-entities`
+     - Predire un candidat (ex. Marine Le Pen): `python -m src.ml.train_entity --entity-mode candidate --entity "LE PEN" --scope commune --test-years latest`
+     - Predire un parti malgre changement de candidat/nom (ex. RN): `python -m src.ml.train_entity --entity-mode party --entity RN --scope commune --test-years latest`
+     - sorties dans `data/processed/ml/entity_*/` (metrics + predictions + data_quality_report)
    - **Interpretation du RÃ‚Â²** (soutenance/jury) : `docs/interpretation_r2.md`
-- **DonnÃƒÂ©es pour amÃƒÂ©liorer le RÃ‚Â²** : `docs/amelioration_r2_donnees.md`
+   - **DonnÃƒÂ©es pour amÃƒÂ©liorer le RÃ‚Â²** : `docs/amelioration_r2_donnees.md`
+   - **Besoins metiers formalises** : `docs/besoins_metiers.md`
+   - **Strategie big data** : `docs/strategie_big_data.md`
+   - **Modele multidimensionnel BI** : `docs/modele_multidimensionnel_bi.md`
+   - **Conformite grille MSPR** : `docs/grille_conformite_mspr.md`
+   - **Architecture BI (3 couches)** : `docs/architecture_bi_3_couches.md`
+   - **Flux ETL (BPM/ETL)** : `docs/flux_etl_bpm.md`
+   - **Securite / RGPD** : `docs/securite_rgpd.md`
    - Notebook : `notebooks/02_model.ipynb`
 
 ## Orchestration Airflow
