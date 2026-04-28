@@ -1,0 +1,9 @@
+{
+  "generated_at_utc": "2026-04-28T09:47:18+00:00",
+  "files": {
+    "data/clean/election_results_commune_t1_idf_clean.csv": 67982,
+    "data/clean/socio_indicators_idf_clean.csv": 848
+  },
+  "geo_scope": "ile-de-france",
+  "analysis_granularity": "commune"
+}

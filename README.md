@@ -11,6 +11,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
 2. Lancer tous les services (Postgres + pgAdmin + Airflow): `docker compose up -d --build`
    - Visualisation BDD: `http://localhost:8081`
    - Interface Airflow: `http://localhost:8080` (admin/password)
+   - Dashboard web interactif (DB live): `http://localhost:8501`
    - Login pgAdmin: email `admin@mspr.com`, mot de passe `admin` (modifiable via `.env`).
    - Dans pgAdmin, creer un server PostgreSQL:
      - Hostname/address: `db`
@@ -53,6 +54,9 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
    - Datamart BI multidimensionnel (etoile/flocon):
      - `docker exec -i mspr_pg psql -U ${POSTGRES_USER:-mspr} -d ${POSTGRES_DB:-mspr_electio} < sql/bi_datamart.sql`
      - objets crees dans le schema `bi` (`dim_*`, `fact_election_result`, `vw_fact_presidentielle_t1`)
+   - Export du jeu de donnees nettoye (livrable MSPR):
+     - `python -m src.etl.export_clean_datasets`
+     - sorties: `data/clean/election_results_commune_t1_idf_clean.csv`, `data/clean/socio_indicators_idf_clean.csv`, `data/clean/manifest.json`
 6) Generer le dashboard Matplotlib:
    - `python src/dashboard/build_dashboard.py`
    - `python -m src.dashboard.build_dashboard` (depuis la racine du projet)
@@ -64,6 +68,10 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
    - Dashboard HTML interactif:
      - `python -m src.dashboard.build_dashboard_interactive`
      - sortie: `data/processed/dashboard/idf_dashboard_interactive.html`
+   - Dashboard web interactif (lecture directe PostgreSQL):
+     - `docker compose up -d --build dashboard`
+     - URL: `http://localhost:8501`
+     - App: `src/dashboard/app_streamlit.py` (filtres + graphiques Plotly + requetes DB en direct)
 7) Ouvrir les notebooks si besoin.
 8) **Machine Learning** (modele predictif supervise) :
    - Depuis la racine du projet : `python -m src.ml.train --target extreme_droite --model ridge` (cible part extreme droite, RÃ‚Â² stabilise)
@@ -85,15 +93,14 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
      - Predire un candidat (ex. Marine Le Pen): `python -m src.ml.train_entity --entity-mode candidate --entity "LE PEN" --scope commune --test-years latest`
      - Predire un parti malgre changement de candidat/nom (ex. RN): `python -m src.ml.train_entity --entity-mode party --entity RN --scope commune --test-years latest`
      - sorties dans `data/processed/ml/entity_*/` (metrics + predictions + data_quality_report)
-   - **Interpretation du RÃ‚Â²** (soutenance/jury) : `docs/interpretation_r2.md`
-   - **DonnÃƒÂ©es pour amÃƒÂ©liorer le RÃ‚Â²** : `docs/amelioration_r2_donnees.md`
-   - **Besoins metiers formalises** : `docs/besoins_metiers.md`
-   - **Strategie big data** : `docs/strategie_big_data.md`
-   - **Modele multidimensionnel BI** : `docs/modele_multidimensionnel_bi.md`
+   - **Cadrage + besoins metiers** : `docs/cadrage_besoins.md`
+   - **Pipeline + architecture BI** : `docs/pipeline_architecture.md`
+   - **Modelisation MCD + BI** : `docs/modelisation_bi.md`
+   - **Precision ML (R2/MAE/RMSE)** : `docs/ml_precision.md`
    - **Conformite grille MSPR** : `docs/grille_conformite_mspr.md`
-   - **Architecture BI (3 couches)** : `docs/architecture_bi_3_couches.md`
-   - **Flux ETL (BPM/ETL)** : `docs/flux_etl_bpm.md`
+   - **Index documentation** : `docs/README.md`
    - **Securite / RGPD** : `docs/securite_rgpd.md`
+   - **Procedure RSSI** : `docs/procedure_rssi.md`
    - Notebook : `notebooks/02_model.ipynb`
 
 ## Orchestration Airflow
@@ -105,7 +112,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
    - `mspr_idf_presidentielles_etl` (`load_presidential_results` -> `load_socio_economic_indicators` -> `build_matplotlib_dashboard`)
 
 ## Livrables
-- Dossier de synthese: `docs/` (cadrage, sources, mcd, methodo)
+- Dossier de synthese: `docs/` (index + docs consolidees)
 - Jeu de donnees nettoye: `data/clean/` (CSV ou export SQL)
 - Code: `src/` et `sql/`
 - Support de soutenance: `slides/`
@@ -118,7 +125,7 @@ Stack: Python + PostgreSQL (Docker) + Airflow + Matplotlib.
 - `docs/` documentation projet
 - `sql/` schema Postgres
 - `src/` scripts ETL et ML
-- `src/dashboard/` generation dashboard Matplotlib
+- `src/dashboard/` dashboards Matplotlib + dashboard web interactif (Streamlit)
 - `src/ml/` modele predictif (regression part de vote, features socio-eco + lags)
 - `airflow/` DAGs et configuration Airflow
 - `data/raw/` sources brutes

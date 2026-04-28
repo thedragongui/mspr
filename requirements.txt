@@ -8,3 +8,5 @@ joblib
 matplotlib
 seaborn
 openpyxl
+plotly
+streamlit

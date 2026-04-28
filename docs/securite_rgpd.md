@@ -1,40 +1,45 @@
 # Securite et conformite RGPD
 
-Date de reference: 20 avril 2026.
+Date de reference: 28 avril 2026.
 
 ## Perimetre juridique
-- Donnees manipulees: donnees electorales agregees et indicateurs territoriaux publics.
-- Source principale: open data (data.gouv / INSEE).
-- Nature des donnees: pas de donnees personnelles directes exploitees dans le POC.
+- Donnees manipulees: resultats electoraux agreges + indicateurs territoriaux publics.
+- Sources: open data (`data.gouv`, `INSEE`, `geo.api.gouv.fr`).
+- Nature des donnees: pas de donnees personnelles directes dans le perimetre fonctionnel du POC.
 
-## Principes appliques
-1. Minimisation
-- Le POC conserve les champs necessaires a l'analyse et a la prediction.
-- Pas de collecte de donnees nominatives citoyennes.
+## Mesures appliquees sur le projet
+1. Minimisation des donnees
+- Conservation uniquement des attributs necessaires a l'analyse BI/ML.
+- Exclusion des champs nominatifs individuels.
 
-2. Licences et proprietes intellectuelles
-- Les sources sont listees et tracables dans [sources.md](/C:/Users/guilhem/Documents/mspr/docs/sources.md).
-- Les jeux de donnees sont utilises selon leur regime open data.
+2. Tracabilite des sources et de la PI
+- Inventaire des sources, formats et conditions d'usage: [sources.md](/C:/Users/guilhem/Documents/mspr/docs/sources.md).
+- Versionning des scripts ETL/ML et des artefacts de sortie.
 
 3. Confidentialite operationnelle
-- Secrets techniques externalises dans `.env` (DB user/password).
-- Acces base borne au reseau Docker du projet.
-- Separation des services (`db`, `pgadmin`, `airflow`) via `docker-compose.yml`.
+- Secrets hors code dans `.env`.
+- Segmentation des services (`db`, `pgadmin`, `airflow`, `dashboard`) via Docker Compose.
+- Acces base restreint au reseau de la stack.
 
-4. Integrite et qualite
-- Regles qualite explicites avant entrainement dans [data_quality.py](/C:/Users/guilhem/Documents/mspr/src/ml/data_quality.py).
-- Controles de coherence metier (bornes [0,1], contraintes votes/inscrits, doublons).
+4. Integrite et qualite des donnees
+- Controles qualite explicites avant entrainement: [data_quality.py](/C:/Users/guilhem/Documents/mspr/src/ml/data_quality.py).
+- Regles: bornes `[0,1]`, contraintes de coherence sur les comptes de vote, dedoublonnage.
 
-5. Traceabilite
-- Pipelines scriptes et rejouables (`python -m src.etl.run_etl`).
-- Orchestration Airflow et artefacts de sortie versionnables (`data/processed/*`).
+5. Rejouabilite et auditabilite
+- Pipeline reproductible: `python -m src.etl.run_etl`.
+- Export des jeux nettoyes: `python -m src.etl.export_clean_datasets`.
+- Livraison des datasets nettoyes dans `data/clean/`.
 
-## Mesures de durcissement recommandees (prochaine etape)
-- Remplacer les identifiants par defaut (Airflow admin/admin, pgAdmin admin/admin).
-- Ajouter une politique de rotation des secrets.
-- Activer chiffrement TLS sur les acces externes aux interfaces d'admin.
-- Ajouter un registre de traitements (format RGPD) meme si donnees publiques.
+## Procedure RSSI de reference
+- Procedure detaillee formalisee: [procedure_rssi.md](/C:/Users/guilhem/Documents/mspr/docs/procedure_rssi.md).
+- Couvre notamment:
+  - gouvernance et responsabilites,
+  - controle d'acces et gestion des comptes,
+  - gestion et rotation des secrets,
+  - journalisation / supervision,
+  - gestion d'incident,
+  - exigences RGPD et registre de traitement.
 
 ## Position par rapport a la grille MSPR
-- Critere securite/juridique: partiellement couvert techniquement et documente.
-- Action pour passer au niveau maximal: formaliser une procedure RSSI complete (controle d'acces, journalisation securite, plan de reponse incident).
+- Critere securite/juridique: couvert sur le plan documentaire et organisationnel.
+- Pour une mise en production: activer TLS de bout en bout sur les interfaces d'administration et industrialiser la rotation des secrets.

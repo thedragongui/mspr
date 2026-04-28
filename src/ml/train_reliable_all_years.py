@@ -115,6 +115,38 @@ def _make_model(model_name: str) -> Pipeline:
                 ),
             ]
         )
+    if model_name == "et_deep":
+        return Pipeline(
+            [
+                ("scaler", StandardScaler()),
+                (
+                    "regressor",
+                    ExtraTreesRegressor(
+                        n_estimators=700,
+                        max_depth=None,
+                        min_samples_leaf=1,
+                        random_state=42,
+                        n_jobs=-1,
+                    ),
+                ),
+            ]
+        )
+    if model_name == "rf_deep":
+        return Pipeline(
+            [
+                ("scaler", StandardScaler()),
+                (
+                    "regressor",
+                    RandomForestRegressor(
+                        n_estimators=700,
+                        max_depth=None,
+                        min_samples_leaf=1,
+                        random_state=42,
+                        n_jobs=-1,
+                    ),
+                ),
+            ]
+        )
     if model_name == "gbr":
         return Pipeline(
             [
@@ -326,7 +358,7 @@ def _prepare_xy(
 
 
 def _candidate_configs_for_target(target: str, scope: str) -> list[dict]:
-    base_models = ["ridge", "enet", "rf", "et", "gbr", "hgb"]
+    base_models = ["ridge", "enet", "rf", "et", "rf_deep", "et_deep", "gbr", "hgb"]
     configs = [{"model": m, "feature_mode": "default"} for m in base_models]
     if scope == "commune" and target in TUNED_FEATURES_BY_TARGET:
         tuned_model = "et" if target == "gauche" else "enet_tuned"
@@ -339,6 +371,7 @@ def _candidate_configs_for_target(target: str, scope: str) -> list[dict]:
                 {"model": "dept_nowcast_anchor", "feature_mode": "anchor", "anchor_variant": "level"},
                 {"model": "dept_nowcast_anchor", "feature_mode": "anchor", "anchor_variant": "add"},
                 {"model": "dept_nowcast_anchor", "feature_mode": "anchor", "anchor_variant": "mul"},
+                {"model": "dept_nowcast_anchor_adaptive", "feature_mode": "anchor"},
             ]
         )
         # Anchor + residual correction model trained on full feature set,
@@ -355,6 +388,16 @@ def _candidate_configs_for_target(target: str, scope: str) -> list[dict]:
                             **residual_cfg,
                         }
                     )
+        for beta in [0.01, 0.02, 0.05, 0.10]:
+            for residual_cfg in _residual_candidate_configs():
+                configs.append(
+                    {
+                        "model": "dept_nowcast_anchor_adaptive_residual",
+                        "feature_mode": "default",
+                        "residual_beta": float(beta),
+                        **residual_cfg,
+                    }
+                )
     return configs
 
 
@@ -421,6 +464,60 @@ def _predict_from_dept_anchor(test_df: pd.DataFrame, target: str, variant: str) 
     return _clip(pred)
 
 
+def _predict_from_dept_anchor_adaptive(
+    train_df: pd.DataFrame,
+    predict_df: pd.DataFrame,
+    target: str,
+    fallback_variant: str = "mul",
+) -> np.ndarray:
+    """
+    Adaptive anchor:
+    - learns per-commune best variant among (level, add, mul) on train years
+    - applies chosen variant to the prediction frame
+    """
+    if predict_df.empty:
+        return np.array([], dtype=float)
+    if "geo_code" not in predict_df.columns:
+        return _predict_from_dept_anchor(predict_df, target=target, variant=fallback_variant)
+
+    train_clean = train_df.copy()
+    train_clean["target"] = pd.to_numeric(train_clean.get("target"), errors="coerce")
+    train_clean = train_clean.dropna(subset=["target"]).copy()
+    if train_clean.empty or "geo_code" not in train_clean.columns:
+        return _predict_from_dept_anchor(predict_df, target=target, variant=fallback_variant)
+
+    variants = ["level", "add", "mul"]
+    train_err = train_clean[["geo_code"]].copy()
+    for var in variants:
+        pred_train = _predict_from_dept_anchor(train_clean, target=target, variant=var)
+        train_err[f"err_{var}"] = np.abs(train_clean["target"].astype(float).values - pred_train)
+
+    by_geo = train_err.groupby("geo_code", as_index=False)[[f"err_{v}" for v in variants]].mean()
+    err_matrix = by_geo[[f"err_{v}" for v in variants]].to_numpy(dtype=float)
+    best_idx = np.argmin(err_matrix, axis=1)
+    by_geo["best_variant"] = [variants[i] for i in best_idx]
+    best_map = dict(zip(by_geo["geo_code"].astype(str), by_geo["best_variant"].astype(str)))
+
+    pred_clean = predict_df.copy()
+    pred_clean["target"] = pd.to_numeric(pred_clean.get("target"), errors="coerce")
+    pred_clean = pred_clean.dropna(subset=["target"]).copy()
+    if pred_clean.empty:
+        return np.array([], dtype=float)
+
+    pred_by_variant = {
+        var: _predict_from_dept_anchor(pred_clean, target=target, variant=var)
+        for var in variants
+    }
+    geo_values = pred_clean["geo_code"].astype(str).tolist()
+    chosen_variants = [best_map.get(g, fallback_variant) for g in geo_values]
+
+    out = np.zeros(len(pred_clean), dtype=float)
+    for i, chosen in enumerate(chosen_variants):
+        chosen_key = chosen if chosen in pred_by_variant else fallback_variant
+        out[i] = pred_by_variant[chosen_key][i]
+    return _clip(out)
+
+
 def run_reliable_training(
     scope: str,
     targets: list[str],
@@ -457,17 +554,20 @@ def run_reliable_training(
         best_fold_df = None
         for cfg in _candidate_configs_for_target(target, scope):
             is_anchor = cfg["model"] == "dept_nowcast_anchor"
+            is_anchor_adaptive = cfg["model"] == "dept_nowcast_anchor_adaptive"
             is_anchor_residual = cfg["model"] == "dept_nowcast_anchor_residual"
+            is_anchor_adaptive_residual = cfg["model"] == "dept_nowcast_anchor_adaptive_residual"
             if cfg["feature_mode"] == "tuned":
                 feature_list = [c for c in TUNED_FEATURES_BY_TARGET[target] if c in df.columns]
             elif cfg["feature_mode"] == "default":
                 feature_list = _default_features(df, target)
             else:
                 feature_list = []
-            if not is_anchor and not feature_list:
+            if not is_anchor and not is_anchor_adaptive and not feature_list:
                 continue
             uses_new_data_cfg = (
                 is_anchor_residual
+                or is_anchor_adaptive_residual
                 or _has_thematic_features(feature_list)
                 or bool(cfg.get("feature_mode") == "tuned")
             )
@@ -500,6 +600,30 @@ def run_reliable_training(
                     )
                     if pred_model.size == 0:
                         continue
+                elif is_anchor_adaptive:
+                    train_clean = train_df.copy()
+                    train_clean["target"] = pd.to_numeric(train_clean.get("target"), errors="coerce")
+                    train_clean = train_clean.dropna(subset=["target"]).copy()
+                    test_clean = test_df.copy()
+                    test_clean["target"] = pd.to_numeric(test_clean.get("target"), errors="coerce")
+                    test_clean = test_clean.dropna(subset=["target"]).copy()
+                    if train_clean.empty or test_clean.empty:
+                        continue
+
+                    y_test = test_clean["target"].astype(float).values
+                    baseline_col = _baseline_col_for_target(target)
+                    if baseline_col in test_clean.columns:
+                        baseline_test = _clip(pd.to_numeric(test_clean[baseline_col], errors="coerce").fillna(0.0).values)
+                    else:
+                        baseline_test = np.zeros(len(test_clean), dtype=float)
+                    pred_model = _predict_from_dept_anchor_adaptive(
+                        train_clean,
+                        test_clean,
+                        target=target,
+                        fallback_variant="mul",
+                    )
+                    if pred_model.size == 0:
+                        continue
                 elif is_anchor_residual:
                     train_clean = train_df.copy()
                     train_clean["target"] = pd.to_numeric(train_clean.get("target"), errors="coerce")
@@ -518,6 +642,48 @@ def run_reliable_training(
                     anchor_variant = str(cfg.get("anchor_variant", "level"))
                     anchor_train = _predict_from_dept_anchor(train_clean, target=target, variant=anchor_variant)
                     anchor_test = _predict_from_dept_anchor(test_clean, target=target, variant=anchor_variant)
+                    if anchor_train.size != len(y_train) or anchor_test.size != len(y_test):
+                        continue
+
+                    residual_model = _make_residual_model(
+                        model_name=str(cfg.get("residual_model", "ridge")),
+                        alpha=float(cfg.get("residual_alpha", 40.0)),
+                        l1_ratio=float(cfg.get("residual_l1_ratio", 0.5)),
+                        max_iter=int(cfg.get("residual_max_iter", 300)),
+                        learning_rate=float(cfg.get("residual_learning_rate", 0.03)),
+                        max_depth=int(cfg.get("residual_max_depth", 4)),
+                    )
+                    residual_model.fit(x_train, y_train - anchor_train)
+                    residual_pred = residual_model.predict(x_test)
+                    beta = float(cfg.get("residual_beta", 0.05))
+                    pred_model = _clip(anchor_test + beta * residual_pred)
+                elif is_anchor_adaptive_residual:
+                    train_clean = train_df.copy()
+                    train_clean["target"] = pd.to_numeric(train_clean.get("target"), errors="coerce")
+                    train_clean = train_clean.dropna(subset=["target"]).copy()
+                    test_clean = test_df.copy()
+                    test_clean["target"] = pd.to_numeric(test_clean.get("target"), errors="coerce")
+                    test_clean = test_clean.dropna(subset=["target"]).copy()
+                    if train_clean.empty or test_clean.empty:
+                        continue
+
+                    x_train, y_train, _ = _prepare_xy(train_clean, target=target, feature_list=feature_list)
+                    x_test, y_test, baseline_test = _prepare_xy(test_clean, target=target, feature_list=feature_list)
+                    if x_train.empty or x_test.empty:
+                        continue
+
+                    anchor_train = _predict_from_dept_anchor_adaptive(
+                        train_clean,
+                        train_clean,
+                        target=target,
+                        fallback_variant="mul",
+                    )
+                    anchor_test = _predict_from_dept_anchor_adaptive(
+                        train_clean,
+                        test_clean,
+                        target=target,
+                        fallback_variant="mul",
+                    )
                     if anchor_train.size != len(y_train) or anchor_test.size != len(y_test):
                         continue
 
@@ -555,7 +721,11 @@ def run_reliable_training(
             if not fold_cache:
                 continue
 
-            alpha_grid = [0.75, 0.9, 1.0] if is_anchor_residual else [0.0, 0.25, 0.5, 0.75, 1.0]
+            alpha_grid = (
+                [0.75, 0.9, 1.0]
+                if (is_anchor_residual or is_anchor_adaptive_residual)
+                else [0.0, 0.25, 0.5, 0.75, 1.0]
+            )
             for alpha in alpha_grid:
                 fold_rows = []
                 for fold in fold_cache:

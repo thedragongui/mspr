@@ -1,0 +1,849 @@
+indicator_code,insee_code,year,value,source_file
+business_creation_rate,75000,2012,13.83,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,75000,2017,12.14,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,75000,2022,14.94,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,77000,2012,17.87,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,77000,2017,13.98,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,77000,2022,21.21,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,78000,2012,16.53,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,78000,2017,14.19,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,78000,2022,19.84,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,91000,2012,17.43,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,91000,2017,13.97,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,91000,2022,21.38,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,92000,2012,17.13,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,92000,2017,14.9,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,92000,2022,18.92,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,93000,2012,19.17,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,93000,2017,17.03,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,93000,2022,22.24,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,94000,2012,18.52,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,94000,2017,16.01,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,94000,2022,22.11,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creation_rate,95000,2012,18.35,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2011]
+business_creation_rate,95000,2017,15.15,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2015]
+business_creation_rate,95000,2022,21.77,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_crea_etab) [aligned_from=2021]
+business_creations_count,75000,2012,51670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,75000,2017,55283.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,75000,2022,89231.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,77000,2012,12093.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,77000,2017,11773.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,77000,2022,24673.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,78000,2012,13202.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,78000,2017,13782.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,78000,2022,26982.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,91000,2012,10793.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,91000,2017,10725.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,91000,2022,23499.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,92000,2012,19734.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,92000,2017,21108.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,92000,2022,37995.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,93000,2012,16077.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,93000,2017,18887.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,93000,2022,39854.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,94000,2012,13444.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,94000,2017,14431.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,94000,2022,29842.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+business_creations_count,95000,2012,10655.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2011]
+business_creations_count,95000,2017,11315.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2015]
+business_creations_count,95000,2022,24886.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_crea_etablissements) [aligned_from=2021]
+catnat_communes_drought_count,75000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,75000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,75000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,75000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,75000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,75000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,75000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,1995,36.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,2017,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,77000,2022,45.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,1995,5.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,2017,12.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,78000,2022,100.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,1995,6.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,91000,2022,6.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,92000,2022,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,1995,4.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,93000,2022,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,1995,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,94000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,1995,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,2017,9.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_drought_count,95000,2022,23.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=sec)"
+catnat_communes_flood_count,75000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,75000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,75000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,75000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,75000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,75000,2017,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,75000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,1988,69.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,1995,98.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,2002,4.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,2007,3.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,2012,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,2017,8.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,77000,2022,3.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,1988,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,1995,19.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,2002,4.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,2007,29.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,2012,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,2017,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,78000,2022,6.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,1988,66.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,1995,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,2002,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,2007,4.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,2012,13.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,2017,19.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,91000,2022,17.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,1988,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,1995,6.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,2007,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,2017,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,92000,2022,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,1988,14.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,1995,25.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,2002,3.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,2007,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,93000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,1988,42.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,1995,23.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,2017,2.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,94000,2022,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,1988,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,1995,54.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,2002,5.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,2007,12.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,2017,1.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_flood_count,95000,2022,9.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=ino)"
+catnat_communes_storm_count,75000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,75000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,75000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,75000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,75000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,75000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,75000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,77000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,78000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,91000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,92000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,93000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,94000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,1988,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,1995,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,2002,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,2007,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,2012,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,2017,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+catnat_communes_storm_count,95000,2022,0.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_com_catnat,sous_champ=atm)"
+declared_income_median,75000,2022,31670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,77000,2022,24730.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,78000,2022,29250.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,91000,2022,25310.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,92000,2022,31610.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,93000,2022,17470.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,94000,2022,24450.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+declared_income_median,95000,2022,23070.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=revenu_decl_median) [aligned_from=2021]
+establishments_count,75000,2012,373723.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,75000,2017,455277.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,75000,2022,597141.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,77000,2012,67660.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,77000,2017,84188.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,77000,2022,116334.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,78000,2012,79882.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,78000,2017,97108.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,78000,2022,135974.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,91000,2012,61936.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,91000,2017,76752.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,91000,2022,109908.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,92000,2012,115191.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,92000,2017,141695.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,92000,2022,200863.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,93000,2012,83882.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,93000,2017,110876.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,93000,2022,179160.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,94000,2012,72606.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,94000,2017,90113.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,94000,2022,134999.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+establishments_count,95000,2012,58062.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2011]
+establishments_count,95000,2017,74703.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2015]
+establishments_count,95000,2022,114296.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_etablissements) [aligned_from=2021]
+jobseekers_abc_count,75000,2002,185100.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,75000,2007,143540.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,75000,2012,178980.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,75000,2017,205240.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,75000,2022,187310.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,77000,2002,57960.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,77000,2007,52150.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,77000,2012,80670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,77000,2017,101670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,77000,2022,102710.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,78000,2002,64300.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,78000,2007,53760.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,78000,2012,76770.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,78000,2017,97100.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,78000,2022,97530.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,91000,2002,54180.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,91000,2007,43610.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,91000,2012,68960.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,91000,2017,89880.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,91000,2022,87380.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,92000,2002,88130.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,92000,2007,69970.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,92000,2012,97410.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,92000,2017,116460.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,92000,2022,110180.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,93000,2002,112870.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,93000,2007,94810.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,93000,2012,134790.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,93000,2017,171750.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,93000,2022,164910.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,94000,2002,72390.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,94000,2007,61750.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,94000,2012,86730.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,94000,2017,109500.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,94000,2022,104130.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,95000,2002,65950.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,95000,2007,59430.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,95000,2012,86110.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,95000,2017,105400.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_abc_count,95000,2022,99210.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deABC)
+jobseekers_de_count,75000,2002,74920.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,75000,2007,63130.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,75000,2012,80940.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,75000,2017,100290.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,75000,2022,92030.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,77000,2002,17220.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,77000,2007,15210.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,77000,2012,28330.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,77000,2017,41730.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,77000,2022,44000.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,78000,2002,19150.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,78000,2007,17840.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,78000,2012,27460.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,78000,2017,41570.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,78000,2022,43140.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,91000,2002,15900.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,91000,2007,11930.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,91000,2012,22910.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,91000,2017,35150.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,91000,2022,34130.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,92000,2002,29600.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,92000,2007,25100.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,92000,2012,38030.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,92000,2017,51400.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,92000,2022,48670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,93000,2002,40270.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,93000,2007,33660.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,93000,2012,54770.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,93000,2017,74670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,93000,2022,74550.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,94000,2002,23810.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,94000,2007,21790.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,94000,2012,33100.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,94000,2017,47650.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,94000,2022,46280.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,95000,2002,20270.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,95000,2007,20280.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,95000,2012,32430.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,95000,2017,44220.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+jobseekers_de_count,95000,2022,41530.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_deld)
+life_expectancy_men,75000,2002,77.9227263437023,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,75000,2007,79.6252758727779,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,75000,2012,80.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,75000,2017,81.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,75000,2022,81.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,77000,2002,75.905488705723,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,77000,2007,77.4132038926151,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,77000,2012,78.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,77000,2017,80.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,77000,2022,80.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,78000,2002,78.050488197026,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,78000,2007,79.6857672468423,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,78000,2012,80.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,78000,2017,81.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,78000,2022,81.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,91000,2002,77.0841848674479,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,91000,2007,79.0480370684307,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,91000,2012,80.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,91000,2017,80.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,91000,2022,81.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,92000,2002,78.0494163008357,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,92000,2007,79.9148170052488,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,92000,2012,80.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,92000,2017,81.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,92000,2022,82.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,93000,2002,76.0538208603028,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,93000,2007,77.7683895165728,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,93000,2012,78.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,93000,2017,79.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,93000,2022,79.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,94000,2002,77.3513436393414,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,94000,2007,78.9413940273232,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,94000,2012,79.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,94000,2017,81.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,94000,2022,81.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,95000,2002,76.3829562841703,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,95000,2007,78.3682149540508,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,95000,2012,79.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,95000,2017,80.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_men,95000,2022,80.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=homme)"
+life_expectancy_women,75000,2002,84.0121403984841,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,75000,2007,85.4788974407927,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,75000,2012,86.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,75000,2017,86.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,75000,2022,86.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,77000,2002,82.3427939588417,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,77000,2007,83.525450969965,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,77000,2012,84.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,77000,2017,85.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,77000,2022,84.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,78000,2002,83.8688059712645,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,78000,2007,85.6211085331158,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,78000,2012,85.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,78000,2017,86.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,78000,2022,86.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,91000,2002,83.4941400518843,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,91000,2007,84.8378441452692,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,91000,2012,85.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,91000,2017,85.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,91000,2022,85.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,92000,2002,84.0106604007441,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,92000,2007,85.3713139668117,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,92000,2012,85.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,92000,2017,86.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,92000,2022,86.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,93000,2002,82.6733453228481,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,93000,2007,84.0404361251282,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,93000,2012,84.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,93000,2017,84.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,93000,2022,84.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,94000,2002,83.1102826420278,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,94000,2007,84.9528102327189,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,94000,2012,85.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,94000,2017,86.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,94000,2022,86.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,95000,2002,82.9261949595632,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,95000,2007,84.0162830364308,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,95000,2012,84.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,95000,2017,85.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+life_expectancy_women,95000,2022,85.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=esper_vie,sous_champ=femme)"
+long_term_jobseekers_share,75000,2002,40.48,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,75000,2007,43.98,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,75000,2012,45.22,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,75000,2017,48.86,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,75000,2022,49.13,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,77000,2002,29.71,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,77000,2007,29.17,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,77000,2012,35.12,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,77000,2017,41.04,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,77000,2022,42.84,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,78000,2002,29.78,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,78000,2007,33.18,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,78000,2012,35.77,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,78000,2017,42.81,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,78000,2022,44.23,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,91000,2002,29.35,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,91000,2007,27.36,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,91000,2012,33.22,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,91000,2017,39.11,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,91000,2022,39.06,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,92000,2002,33.59,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,92000,2007,35.87,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,92000,2012,39.04,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,92000,2017,44.14,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,92000,2022,44.17,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,93000,2002,35.68,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,93000,2007,35.5,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,93000,2012,40.63,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,93000,2017,43.48,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,93000,2022,45.21,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,94000,2002,32.89,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,94000,2007,35.29,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,94000,2012,38.16,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,94000,2017,43.52,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,94000,2022,44.44,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,95000,2002,30.74,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,95000,2007,34.12,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,95000,2012,37.66,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,95000,2017,41.95,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+long_term_jobseekers_share,95000,2022,41.86,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_deld)
+median_standard_of_living,75000,2022,29730.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,77000,2022,24640.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,78000,2022,28130.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,91000,2022,25040.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,92000,2022,29720.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,93000,2022,19020.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,94000,2022,24270.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+median_standard_of_living,95000,2022,23290.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=niveau_vie_median) [aligned_from=2021]
+no_diploma_rate_20_24,75000,2012,16.45,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,75000,2017,12.89,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,75000,2022,9.18,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,77000,2012,22.59,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,77000,2017,19.49,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,77000,2022,15.99,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,78000,2012,19.14,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,78000,2017,16.5,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,78000,2022,13.54,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,91000,2012,23.44,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,91000,2017,19.37,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,91000,2022,17.17,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,92000,2012,19.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,92000,2017,17.44,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,92000,2022,12.2,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,93000,2012,30.75,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,93000,2017,27.9,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,93000,2022,20.82,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,94000,2012,22.08,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,94000,2017,20.07,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,94000,2022,14.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+no_diploma_rate_20_24,95000,2012,24.42,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2010]
+no_diploma_rate_20_24,95000,2017,22.04,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2015]
+no_diploma_rate_20_24,95000,2022,17.58,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_20_24_sortis_nondip) [aligned_from=2021]
+overindebtedness_cases_count,75000,2002,3542.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,75000,2007,4446.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,75000,2012,4995.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,75000,2017,3314.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,75000,2022,2492.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,77000,2002,3278.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,77000,2007,4105.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,77000,2012,4432.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,77000,2017,3313.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,77000,2022,2206.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,78000,2002,2334.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,78000,2007,3282.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,78000,2012,3831.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,78000,2017,2813.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,78000,2022,1962.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,91000,2002,1817.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,91000,2007,2693.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,91000,2012,3320.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,91000,2017,2707.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,91000,2022,2082.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,92000,2002,2951.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,92000,2007,4253.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,92000,2012,4114.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,92000,2017,2783.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,92000,2022,1850.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,93000,2002,3095.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,93000,2007,4359.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,93000,2012,5045.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,93000,2017,3929.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,93000,2022,2613.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,94000,2002,2683.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,94000,2007,3663.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,94000,2012,3854.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,94000,2017,2671.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,94000,2022,1978.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,95000,2002,2413.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,95000,2007,3504.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,95000,2012,4151.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,95000,2017,2688.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+overindebtedness_cases_count,95000,2022,1736.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=nb_dossiers_deposes)
+population_age_75_plus_count,75000,2017,169398.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,75000,2022,187932.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,77000,2017,87417.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,77000,2022,102907.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,78000,2017,110614.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,78000,2022,124362.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,91000,2017,89485.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,91000,2022,102164.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,92000,2017,119049.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,92000,2022,128440.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,93000,2017,82806.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,93000,2022,92125.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,94000,2017,97663.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,94000,2022,108294.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,95000,2017,72691.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_count,95000,2022,82588.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop75)
+population_age_75_plus_share,75000,2012,7.45,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,75000,2017,7.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,75000,2022,8.19,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,77000,2012,5.66,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,77000,2017,6.02,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,77000,2022,6.55,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,78000,2012,6.62,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,78000,2017,7.36,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,78000,2022,7.96,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,91000,2012,6.23,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,91000,2017,6.8,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,91000,2022,7.25,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,92000,2012,7.29,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,92000,2017,7.32,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,92000,2022,7.42,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,93000,2012,5.34,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,93000,2017,5.32,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,93000,2022,5.18,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,94000,2012,6.87,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,94000,2017,7.15,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,94000,2022,7.15,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_age_75_plus_share,95000,2012,5.63,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2010]
+population_age_75_plus_share,95000,2017,5.86,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2015]
+population_age_75_plus_share,95000,2022,6.09,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pop75) [aligned_from=2021]
+population_total,75000,2007,2193030.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,75000,2012,2240621.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,75000,2017,2190327.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,75000,2022,2133111.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,77000,2007,1289524.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,77000,2012,1353946.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,77000,2017,1397665.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,77000,2022,1438100.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,78000,2007,1403957.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,78000,2012,1412356.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,78000,2017,1431808.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,78000,2022,1456365.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,91000,2007,1201994.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,91000,2012,1237507.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,91000,2017,1287330.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,91000,2022,1313768.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,92000,2007,1544411.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,92000,2012,1586434.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,92000,2017,1603268.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,92000,2022,1635291.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,93000,2007,1502340.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,93000,2012,1538726.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,93000,2017,1606658.94790654,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,93000,2022,1668670.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,94000,2007,1302889.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,94000,2012,1341831.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,94000,2017,1378151.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,94000,2022,1415367.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+population_total,95000,2007,1160721.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,95000,2012,1187081.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop)
+population_total,95000,2017,1221923.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2016]
+population_total,95000,2022,1256607.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=pop) [aligned_from=2021]
+poverty_rate,75000,2022,15.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,77000,2022,12.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,78000,2022,10.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,91000,2022,13.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,92000,2022,12.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,93000,2022,28.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,94000,2022,17.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+poverty_rate,95000,2022,17.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_pvt,sous_champ=total) [aligned_from=2021]"
+school_leavers_20_24_count,75000,2012,64108.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,75000,2017,58729.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,75000,2022,58593.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,77000,2012,54437.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,77000,2017,50767.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,77000,2022,50785.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,78000,2012,44249.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,78000,2017,41227.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,78000,2022,39643.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,91000,2012,44723.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,91000,2017,43794.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,91000,2022,44017.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,92000,2012,45107.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,92000,2017,41788.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,92000,2022,42434.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,93000,2012,62399.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,93000,2017,60283.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,93000,2022,60402.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,94000,2012,45757.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,94000,2017,43423.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,94000,2022,44228.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_count,95000,2012,46701.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2010]
+school_leavers_20_24_count,95000,2017,42788.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2015]
+school_leavers_20_24_count,95000,2022,41826.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,75000,2012,10544.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,75000,2017,7573.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,75000,2022,5378.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,77000,2012,12296.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,77000,2017,9892.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,77000,2022,8121.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,78000,2012,8469.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,78000,2017,6801.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,78000,2022,5367.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,91000,2012,10485.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,91000,2017,8485.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,91000,2022,7559.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,92000,2012,8886.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,92000,2017,7289.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,92000,2022,5175.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,93000,2012,19190.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,93000,2017,16821.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,93000,2022,12575.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,94000,2012,10101.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,94000,2017,8714.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,94000,2022,6503.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+school_leavers_20_24_no_diploma_count,95000,2012,11406.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2010]
+school_leavers_20_24_no_diploma_count,95000,2017,9432.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2015]
+school_leavers_20_24_no_diploma_count,95000,2022,7351.0,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=20_24_sortis_etudes_nondip) [aligned_from=2021]
+social_benefits_income_share,75000,2022,2.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,77000,2022,5.1,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,78000,2022,3.4,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,91000,2022,4.9,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,92000,2022,2.9,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,93000,2022,9.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,94000,2022,5.2,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_benefits_income_share,95000,2022,5.9,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=poids_presta_sociale_revenu_dispo) [aligned_from=2021]
+social_housing_share,75000,2012,17.22,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,75000,2017,19.74,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,75000,2022,21.21,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,77000,2012,18.53,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,77000,2017,18.5,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,77000,2022,19.18,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,78000,2012,19.76,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,78000,2017,20.68,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,78000,2022,21.84,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,91000,2012,21.58,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,91000,2017,22.73,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,91000,2022,24.21,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,92000,2012,27.02,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,92000,2017,28.1,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,92000,2022,27.87,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,93000,2012,35.18,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,93000,2017,36.25,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,93000,2022,36.18,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,94000,2012,28.3,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,94000,2017,29.28,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,94000,2022,29.73,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,95000,2012,25.47,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,95000,2017,25.84,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+social_housing_share,95000,2022,26.39,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_pls)
+taxable_households_share,75000,2022,68.8,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,77000,2022,62.4,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,78000,2022,69.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,91000,2022,64.7,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,92000,2022,70.4,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,93000,2022,49.2,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,94000,2022,62.4,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+taxable_households_share,95000,2022,60.6,INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=part_foy_fisc_impos) [aligned_from=2021]
+unemployment_rate,75000,2002,8.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,75000,2007,7.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,75000,2012,8.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,75000,2017,7.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,75000,2022,5.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,77000,2002,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,77000,2007,6.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,77000,2012,7.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,77000,2017,7.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,77000,2022,6.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,78000,2002,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,78000,2007,5.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,78000,2012,6.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,78000,2017,6.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,78000,2022,6.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,91000,2002,5.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,91000,2007,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,91000,2012,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,91000,2017,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,91000,2022,6.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,92000,2002,6.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,92000,2007,6.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,92000,2012,7.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,92000,2017,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,92000,2022,5.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,93000,2002,10.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,93000,2007,10.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,93000,2012,12.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,93000,2017,11.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,93000,2022,10.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,94000,2002,6.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,94000,2007,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,94000,2012,8.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,94000,2017,8.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,94000,2022,7.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,95000,2002,7.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,95000,2007,8.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,95000,2012,9.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,95000,2017,9.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate,95000,2022,8.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=total)"
+unemployment_rate_men,75000,2002,8.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,75000,2007,7.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,75000,2012,8.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,75000,2017,7.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,75000,2022,6.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,77000,2002,5.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,77000,2007,5.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,77000,2012,7.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,77000,2017,7.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,77000,2022,6.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,78000,2002,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,78000,2007,5.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,78000,2012,6.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,78000,2017,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,78000,2022,6.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,91000,2002,5.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,91000,2007,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,91000,2012,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,91000,2017,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,91000,2022,6.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,92000,2002,6.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,92000,2007,6.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,92000,2012,7.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,92000,2017,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,92000,2022,6.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,93000,2002,10.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,93000,2007,10.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,93000,2012,12.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,93000,2017,11.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,93000,2022,10.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,94000,2002,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,94000,2007,7.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,94000,2012,8.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,94000,2017,8.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,94000,2022,7.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,95000,2002,7.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,95000,2007,8.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,95000,2012,9.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,95000,2017,9.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_men,95000,2022,8.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=homme)"
+unemployment_rate_women,75000,2002,7.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,75000,2007,7.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,75000,2012,7.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,75000,2017,6.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,75000,2022,5.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,77000,2002,5.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,77000,2007,6.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,77000,2012,7.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,77000,2017,7.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,77000,2022,6.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,78000,2002,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,78000,2007,5.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,78000,2012,6.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,78000,2017,6.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,78000,2022,6.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,91000,2002,5.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,91000,2007,5.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,91000,2012,6.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,91000,2017,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,91000,2022,6.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,92000,2002,6.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,92000,2007,6.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,92000,2012,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,92000,2017,6.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,92000,2022,5.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,93000,2002,10.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,93000,2007,10.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,93000,2012,11.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,93000,2017,11.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,93000,2022,10.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,94000,2002,6.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,94000,2007,7.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,94000,2012,7.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,94000,2017,8.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,94000,2022,6.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,95000,2002,7.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,95000,2007,7.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,95000,2012,9.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,95000,2017,9.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_women,95000,2022,7.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=femme)"
+unemployment_rate_youth_15_24,75000,2002,10.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,75000,2007,10.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,75000,2012,11.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,75000,2017,9.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,75000,2022,9.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,77000,2002,10.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,77000,2007,14.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,77000,2012,19.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,77000,2017,18.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,77000,2022,15.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,78000,2002,11.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,78000,2007,13.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,78000,2012,16.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,78000,2017,15.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,78000,2022,13.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,91000,2002,10.7,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,91000,2007,13.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,91000,2012,16.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,91000,2017,16.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,91000,2022,15.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,92000,2002,11.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,92000,2007,12.8,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,92000,2012,14.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,92000,2017,13.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,92000,2022,11.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,93000,2002,17.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,93000,2007,19.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,93000,2012,22.6,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,93000,2017,21.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,93000,2022,19.2,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,94000,2002,12.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,94000,2007,15.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,94000,2012,17.3,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,94000,2017,17.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,94000,2022,14.5,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,95000,2002,13.4,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,95000,2007,16.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,95000,2012,20.9,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,95000,2017,20.1,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
+unemployment_rate_youth_15_24,95000,2022,17.0,"INSEE - Indicateurs territoriaux de developpement durable (ODD_DEP) (variable=taux_chom_bit,sous_champ=15_24)"
