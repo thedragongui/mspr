@@ -222,7 +222,7 @@ def discover_ml_summary_files() -> list[str]:
         seen.add(key)
         ordered.append(path)
 
-    return [str(p) for p in ordered[:30]]
+    return [str(p) for p in ordered[:200]]
 
 
 def _safe_rel(path: Path) -> str:
@@ -765,28 +765,40 @@ def render_ml_section() -> None:
     st.markdown("<div class='section-divider'>Performance des modeles</div>", unsafe_allow_html=True)
     st.caption("Les runs ML sont lus depuis `data/processed/ml`.")
 
+    refresh_col, info_col = st.columns([1, 3])
+    with refresh_col:
+        if st.button("Actualiser les runs ML", use_container_width=True):
+            discover_ml_summary_files.clear()
+            load_ml_summary.clear()
+            summary_has_predictions.clear()
+            load_predictions_csv.clear()
+            st.session_state.pop("ml_run_select", None)
+            rerun_fn = getattr(st, "rerun", None) or getattr(st, "experimental_rerun", None)
+            if callable(rerun_fn):
+                rerun_fn()
+    with info_col:
+        st.caption("Utilise ce bouton apres un nouvel entrainement pour recharger la liste des runs.")
+
     summary_paths = discover_ml_summary_files()
     if not summary_paths:
         st.info("Aucun fichier de resume ML detecte dans `data/processed/ml`.")
         return
+    st.caption(f"Resumes ML detectes: {len(summary_paths)}")
 
     run_entries: list[tuple[str, bool]] = [(path, summary_has_predictions(path)) for path in summary_paths]
     labels: list[str] = []
     label_to_path: dict[str, str] = {}
     label_has_predictions: dict[str, bool] = {}
     default_index = 0
-    found_with_predictions = False
     for idx, (path, has_predictions) in enumerate(run_entries):
         tag = "predictions" if has_predictions else "metriques only"
         label = f"{idx+1}. {_safe_rel(Path(path))} [{tag}]"
         labels.append(label)
         label_to_path[label] = path
         label_has_predictions[label] = has_predictions
-        if has_predictions and not found_with_predictions:
-            default_index = idx
-            found_with_predictions = True
 
-    selected_label = st.selectbox("Run ML", labels, index=default_index)
+    st.caption(f"Dernier run detecte: `{_safe_rel(Path(run_entries[0][0]))}`")
+    selected_label = st.selectbox("Run ML", labels, index=default_index, key="ml_run_select")
     selected_summary_path = label_to_path[selected_label]
     selected_run_has_predictions = label_has_predictions[selected_label]
     summary_df = load_ml_summary(selected_summary_path)
