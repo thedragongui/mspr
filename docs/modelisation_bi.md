@@ -1,27 +1,16 @@
 # Modelisation de donnees (MCD + BI)
 
-Date de reference: 28 avril 2026.
+Date de reference: 7 mai 2026.
 
 ## MCD (modele conceptuel)
-Entites principales:
-1. `geo_department`
-2. `geo_commune`
-3. `election`
-4. `candidate`
-5. `election_result`
-6. `indicator`
-7. `indicator_value`
+Le MCD detaille et a jour est documente dans:
+- [mcd.md](/C:/Users/guilhem/Documents/mspr/docs/mcd.md)
 
-Relations clefs:
-1. Un departement possede plusieurs communes.
-2. Une election possede plusieurs resultats.
-3. Un candidat peut apparaitre dans plusieurs resultats.
-4. Un indicateur possede plusieurs valeurs par annee et territoire.
-
-Regles de gestion:
-1. `vote_share` doit rester dans `[0,1]`.
-2. La cle `insee_code` structure les jointures territoriales.
-3. Les objets sont historises par `year` et/ou `election_date`.
+Resume fonctionnel:
+1. Referentiel geographique: `geo_department`, `geo_commune`.
+2. Coeur electoral: `election`, `candidate`, `election_result`.
+3. Contexte socio: `indicator`, `indicator_value`.
+4. Datamarts thematiques annuels (commune): `commune_year_economy`, `commune_year_education`, `commune_year_demography`, `commune_year_environment`, `commune_year_election_context`.
 
 ## Modele BI multidimensionnel
 Modele principal: etoile.
